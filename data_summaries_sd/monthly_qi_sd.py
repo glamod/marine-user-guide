@@ -106,10 +106,10 @@ def main():
         
         logging.info('qi counts by PT')
         countsi = value_counts(cdm_table,qi,loc_ships,loc_buoys)
-        counts_df = pd.concat([counts_df,pd.DataFrame(data=[countsi.values],index=[dt],columns = countsi.index.values)])    
+        counts_df = pd.concat([counts_df,pd.DataFrame(data=[countsi.values],index=[dt],columns = countsi.index.values)],sort=True)    
     
     out_file = os.path.join(dir_out,qi + '-ts.psv')    
-    counts_df.to_csv(out_file,sep='|')
+    counts_df.to_csv(out_file,sep='|',na_rep='0')
 
 if __name__ == "__main__":
     main()
