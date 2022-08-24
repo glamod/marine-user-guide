@@ -44,7 +44,7 @@ if __name__ == "__main__":
         config = json.load(cf)
     
     file_data = os.path.join(config['dir_data'],sid_dck,config['file_data'])
-    file_out = os.path.join(config['dir_out'],sid_dck,config['file_out'])
+    file_out = os.path.join(config['dir_out'],sid_dck,sid_dck+'_'+config['file_out'])
 
     data = pd.read_csv(file_data,delimiter='|',header = 0,index_col=[0],parse_dates=[0])
        

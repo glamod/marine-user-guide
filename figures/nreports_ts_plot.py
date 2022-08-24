@@ -52,12 +52,12 @@ if __name__ == "__main__":
         labels = ['ships','drifters'], colors=['grey','Gold'],alpha = 0.3)
     ax.plot(data['0'].rolling(12, center=True).mean(),label='__nolegend__',linewidth = 1,linestyle = ':',color = 'Black',alpha=0.7)
     
-    ax.axvline(x=datetime.datetime(1950,1,1),color='Black')
-    ax.text(datetime.datetime(1965,1,1),y_med,'Release 1',fontsize=16,style='italic')
-    ax.text(datetime.datetime(1890,1,1),y_med,'Release 2',fontsize=16,style='italic')
+#    ax.axvline(x=datetime.datetime(1950,1,1),color='Black')
+#    ax.text(datetime.datetime(1965,1,1),y_med,'Release 1',fontsize=16,style='italic')
+#    ax.text(datetime.datetime(1890,1,1),y_med,'Release 2',fontsize=16,style='italic')
     
     ax.ticklabel_format(axis='y', style='sci',scilimits=(-3,4))
-    ax.set_xlim(datetime.datetime(1851,1,1),datetime.datetime(2010,12,31))
+    ax.set_xlim(datetime.datetime(1851,1,1),datetime.datetime(2021,12,31))
     ax.grid(alpha=0.3,color='k',linestyle=':')
     ax.legend()
     ax.set_yscale('log')

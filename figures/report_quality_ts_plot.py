@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Sep 20 11:43:22 2018
-
 @author: iregon
 """
 import json
@@ -50,14 +49,15 @@ if __name__ == "__main__":
         100*data['1']/data['nreports'],
         100*data['2']/data['nreports'],
         labels = ['qc passed','qc failed','not checked'], colors=['Grey','Red','SeaShell'],alpha = 0.3,edgecolor=['Grey']*3,linewidth=.3)
+
     #ax.plot(data['nreports'].rolling(12, center=True).mean(),label='__nolegend__',linewidth = 1,linestyle = ':',color = 'Black',alpha=0.7)
     
-    ax.axvline(x=datetime.datetime(1950,1,1),color='Black')
-    ax.text(datetime.datetime(1965,1,1),70,'Release 1',fontsize=16,style='italic')
-    ax.text(datetime.datetime(1890,1,1),70,'Release 2',fontsize=16,style='italic')
+#    ax.axvline(x=datetime.datetime(1950,1,1),color='Black')
+#    ax.text(datetime.datetime(1965,1,1),70,'Release 1',fontsize=16,style='italic')
+#    ax.text(datetime.datetime(1890,1,1),70,'Release 2',fontsize=16,style='italic')
     
     ax.ticklabel_format(axis='y', style='sci',scilimits=(-3,4))
-    ax.set_xlim(datetime.datetime(1851,1,1),datetime.datetime(2010,12,31))
+    ax.set_xlim(datetime.datetime(1851,1,1),datetime.datetime(2021,12,31))
     ax.set_ylim(0,100)
     ax.grid(alpha=0.3,color='k',linestyle=':')
     ax.legend(loc='lower left',facecolor = 'white')
