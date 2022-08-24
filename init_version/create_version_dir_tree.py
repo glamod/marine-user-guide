@@ -7,9 +7,9 @@ user guide version.
 
 Input arguments to this script are:
 
+    * mug_path: root directory for MUG data direcory 
     * mug_version: tag for Marine User Guide version (ie.'v4')
     * mug_config_file: path to the Marine User Guide data configuration file
-    * sd: source-deck id (sss-ddd)
 """
 
 import sys
