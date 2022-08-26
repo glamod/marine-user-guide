@@ -5,40 +5,37 @@
 
 
 ### plotting environment
-```./docs/```
-* documentation for environment set up under docs/build/latex/
+* documentation for environment set up and plotting routines under ```./docs/build/latex/```
 
+* environment set up
 ```
 ./setenv.sh
 ./setpaths.sh
-./env
+./init_version/
+./env/
 ```
-* environment set up
 
-```
-./init_version
-./common
-./data_summaries
-./data_summaries_sd
-./docs
-./figures
-./figures_sd
-```
 * scripts to generate plots
+```
+./common/
+./data_summaries/
+./data_summaries_sd/
+./figures/
+./figures_sd/
+```
 
-```
-./config
-```
 * config files
+```
+./config/
+```
 
-```
-./C3S_Marine_PUG
-```
 * resources for the Marine User Guide document
+  - ``` ./C3S_Marine_PUG ```
   - Tex files under ./C3S_Marine_PUG and ./C3S_Marine_PUG/sections folders.
-  - One sentence per line.
+  - One sentence per line
   - compile with lualatex
 
+* this file
 ```
 README.md
 ```
