@@ -1,8 +1,11 @@
 {
-  "dir_data":"/group_workspaces/jasmin2/glamod_marine/data/marine-user-guide/v4/level2/reports",
-  "dir_out":"/group_workspaces/jasmin2/glamod_marine/data/marine-user-guide/v4/level2/reports",
+  "dir_data":"/gws/nopw/j04/glamod_marine/data/marine-user-guide/v7/level2/reports",
+  "dir_out":"/gws/nopw/j04/glamod_marine/data/marine-user-guide/v7/level2/reports",
   "file_in_id" : "-reports_grid_ts-optimal",
   "file_out":"ecv_coverage_ts_grid.png",
   "start":1851,
-  "stop":2010
+  "stop":2021
   }
+
+
+
