@@ -13,6 +13,9 @@
 ./setpaths.sh
 ./init_version/
 ./env/
+./config/mug_config_v7.json
+./config/mug_list_v7.txt
+
 ```
 
 * scripts to generate plots
@@ -24,14 +27,15 @@
 ./figures_sd/
 ```
 
-* config files
+* config files for data summaries and plotting
 ```
-./config/
+./config/config_files/
+./config/config_files_sd/
 ```
 
 * resources for the Marine User Guide document
-  - ``` ./C3S_Marine_PUG ```
-  - Tex files under ./C3S_Marine_PUG and ./C3S_Marine_PUG/sections folders.
+  - ``` ./mug_document_src/ ```
+  - Tex files under ./mug_document_src and ./mug_document_src/sections folders.
   - One sentence per line
   - compile with lualatex
 
@@ -39,6 +43,5 @@
 ```
 README.md
 ```
-* this file
 
 
