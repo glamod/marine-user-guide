@@ -62,27 +62,27 @@
 %\setmainfont{Calibri}
 %\setsansfont{Calibri}
 
-% Use local font folder as fallback, if Calibri is not installed on system
-%\setmainfont{Calibri}[
-%    Path=./CalibriFont/,
-%    Extension = .ttf,
-%    UprightFont=calibri,
-%    BoldFont=calibrib,
-%    ItalicFont=calibrii,
-%    BoldItalicFont=calibriz
-%    ]
-%\setsansfont{Calibri}[
-%    Path=./CalibriFont/,
-%    Extension = .ttf,
-%    UprightFont=calibri,
-%    BoldFont=calibrib,
-%    ItalicFont=calibrii,
-%    BoldItalicFont=calibriz
-%    ]
+%Use local font folder as fallback, if Calibri is not installed on system
+\setmainfont{Calibri}[
+    Path=./CalibriFont/,
+    Extension = .ttf,
+    UprightFont=calibri,
+    BoldFont=calibrib,
+    ItalicFont=calibrii,
+    BoldItalicFont=calibriz
+    ]
+\setsansfont{Calibri}[
+    Path=./CalibriFont/,
+    Extension = .ttf,
+    UprightFont=calibri,
+    BoldFont=calibrib,
+    ItalicFont=calibrii,
+    BoldItalicFont=calibriz
+    ]
 
 % use Carlito as font-metric compatible replacement fallback on overleaf
-\setmainfont{Carlito}
-\setsansfont{Carlito}
+% \setmainfont{Carlito}
+% \setsansfont{Carlito}
 
 % colours to use
 \definecolor{maroon}{RGB}{122,11,44}
@@ -135,7 +135,7 @@
 \begin{document}\thispagestyle{empty}
 \subfile{sections/cover_page.tex}
 \newpage\subfile{sections/front_matter.tex}
-\newpage\subfile{sections/contributors.tex}
+ \newpage\subfile{sections/contributors.tex}
 \renewcommand{\contentsname}{\color{maroon}{Contents}}
 \newpage\tableofcontents\thispagestyle{fancy}
 \newpage\subfile{sections/change_log.tex}
