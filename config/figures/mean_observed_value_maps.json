@@ -1,6 +1,6 @@
 {
-  "dir_data":"/gws/nopw/j04/glamod_marine/data/marine-user-guide/v7/level2/reports",
-  "dir_out":"/gws/nopw/j04/glamod_marine/data/marine-user-guide/v7/level2/reports",
+  "dir_data":"/work/scratch-nopw/aanderss/glamod_marine/data/marine-user-guide/v7/level2/reports",
+  "dir_out":"/work/scratch-nopw/aanderss/glamod_marine/data/marine-user-guide/v7/level2/reports",
   "projection" : "Mollweide",
   "tables":
   {
