@@ -20,7 +20,7 @@ On merging releases, this script will:
     releases
     * Compute the merged initial and final year.
     
-This script outputs a file with the information merged to the path 
+This script outputs a file with the information merged (mug_config.json) a list of all included DCK-SID names (mug_list_full.txt) to the path 
 indicated by the user.
     
 This file can also be imported as a module and contains the following
@@ -53,13 +53,13 @@ def get_releases():
     dataset_name_dict = {}
     release_level2_dict = {}
     while True:
-        release_name = input('Input name for release: ')
+        release_name = input('Input name of release (no path): ')
         if release_name == '':
             break
         release_name_list.append(release_name)
-        dataset_name  = input('Input dataset name: ')
+        dataset_name  = input('Input name of dataset (no path): ')
         dataset_name_dict[release_name] = dataset_name
-        release_level2  = input('Input path to level2 configuration file: ')
+        release_level2  = input('Input filename with path of level2 configuration file: ')
         release_level2_dict[release_name] = release_level2
 
     print('Release and dataset names and level2 configuration paths are:')
@@ -78,7 +78,7 @@ def main():
     release_names,dataset_names_dict,release_level2_dict = get_releases()
     
     # GET OUTPUT PATH
-    out_path = input('Input filename and path for output: ')
+    out_path = input('Input path for output (no filename): ')
     
     merge_dicts = {}
     for release_name in release_names:
@@ -131,8 +131,15 @@ def main():
             print('Removing from config file excluded source-deck excluded from data release(s): {}'.format(sd))
             merged_dict['sid_dck'].pop(sd)
       
-    with open(out_path,'w') as fO:
+    with open(out_path+'mug_config.json','w') as fO:
         json.dump(merged_dict,fO,indent=4)
+
+    #save list of all DCK-SID combinations
+    keylist=list(merged_dict['sid_dck'].keys())
+    with open(out_path+'mug_list_full.txt', 'w') as fO:
+        for keylis in keylist:
+            fO.write(keylis)
+            fO.write('\n')
 
     
 if __name__ == "__main__":
