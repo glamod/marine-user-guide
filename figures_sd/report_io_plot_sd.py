@@ -53,11 +53,11 @@ def plot_io(data,x0,x1,title,out_file):
     line_cols = [ x for x in line_colsi if x in io_df ]
     line_colors = [ line_colors_dict.get(x) for x in line_cols ]
     stack_cols = [ x for x in stack_colsi if x in io_df ]
-    
-    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=figsize, dpi=150) 
+
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=figsize, dpi=150)
     for i,line in enumerate(line_cols):
         ax.plot(io_df.index,io_df[line],marker='o',color = line_colors[i],markersize= 12 - 4*i,linewidth=1,zorder = i + 10 )
-    
+
     ax2 = ax.twinx()
     # Only calculate fails percent if any data from source has been selected...
     if 'PT selection' in line_cols:
@@ -67,13 +67,13 @@ def plot_io(data,x0,x1,title,out_file):
                 ax2.fill_between(io_df.index,0,io_df[col + 'p'].astype('float'), facecolor=stack_colors_dict.get(col),alpha=0.15,interpolate=False,label=col,zorder=i + 2)
                 ax2.plot(io_df.index,io_df[col + 'p'].replace(0,np.nan),marker='o',color = stack_colors_dict.get(col),markersize= 1,alpha=0.6,linewidth=1,zorder = i + 2,label='_nolegend_' )
 #        stack_col_cols = [ col + 'p' for col in stack_cols ]
-#        ax2.stackplot(io_df.index,io_df[stack_col_cols].fillna(0).astype(float).T,labels = stack_cols, colors = stack_colors,alpha=0.2,zorder = 1) # if no fillna., behaves strange 
-        
+#        ax2.stackplot(io_df.index,io_df[stack_col_cols].fillna(0).astype(float).T,labels = stack_cols, colors = stack_colors,alpha=0.2,zorder = 1) # if no fillna., behaves strange
+
     # Set limits and scale and hide the right one
-    ax.set_xlim(x0,x1)
+    ax.set_xlim(x0.to_pydatetime(),x1.to_pydatetime())
     ax.set_yscale("log")
-    ax2.set_xlim(x0,x1)
-    
+    #ax2.set_xlim(x0,x1)
+
     # Now decorate....
     ax.set_ylabel('no.reports', color='k')
     ax2.set_ylabel('percent invalid', color='k')
@@ -87,23 +87,23 @@ def plot_io(data,x0,x1,title,out_file):
     plt.tight_layout();
     # And save plot and data
     plt.savefig(out_file,bbox_inches='tight',dpi = 300)
-    return 
+    return
 
 
 
 #------------------------------------------------------------------------------
 
-def main():   
+def main():
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
-    
-    
+
+
     sid_dck= sys.argv[1]
     config_file = sys.argv[2]
 
-    
+
     with open(config_file,'r') as fO:
-        config = json.load(fO)  
-        
+        config = json.load(fO)
+
 
     file_data = os.path.join(config.get('dir_data'),sid_dck,'io_history-ts.psv')
     file_out = os.path.join(config.get('dir_out'),sid_dck,'io_history-ts.png')
@@ -116,3 +116,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

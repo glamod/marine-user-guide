@@ -49,19 +49,19 @@ projections['Mollweide'] = ccrs.Mollweide()
 # END PARAMS ------------------------------------------------------------------
 
 def read_dataset(file_path,scale,offset):
-    
+
     dataset = xr.open_dataset(file_path,autoclose=True)
     var = 'mean'
-    dataset[var] = offset + scale*dataset[var]    
+    dataset[var] = offset + scale*dataset[var]
     return dataset
 
 def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
-                   colorbar_title = '', colorbar_orien = 'v', 
-                   cmin_value = None, cmax_value = None, 
+                   colorbar_title = '', colorbar_orien = 'v',
+                   cmin_value = None, cmax_value = None,
                    normalization = 'linear'):
-    
+
     """Plots a map on subplot cartopy axis.
- 
+
     Arguments
     ---------
     f : matplotlib.figure
@@ -70,14 +70,14 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
         Axis to map to
     z : ?
         Values to map
-    lons : ? 
+    lons : ?
         Grid longitudes
     lats : ?
         Grid latitudes
-    
+
     Keyword arguments
     -----------------
-     
+
     colorpalette : str
         The name of the matplolib color palette to use. Defaults to jet
     colorbar_title : str
@@ -87,10 +87,10 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
     cmin_value : numeric, optional
         Min value to use in colorbar normalization. Defaults to xarray min
     cmax_value : numeric, optional
-        Max value to use in colorbar normalization. Defaults to xarray max 
+        Max value to use in colorbar normalization. Defaults to xarray max
     normalization : str
-        Normalization to apply to colorbar (linear/log). Defaults to linear 
-    
+        Normalization to apply to colorbar (linear/log). Defaults to linear
+
     """
     # Plots a map on subplot cartopy axis
     # The axis is divided (an map re-scaled accordingly) to accomodate a colorbar. Colorbar is only drawn if show_colorbar = True.
@@ -101,7 +101,7 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
     # To be used locally: all variables/params to be set in script before invocation (but subplot_axis)
     #
     # Could potentially, more or less easily, choose to have an horiontal colorbar...just a couple of parameters more....
-    
+
     # Make sure we know what z is. Now we control this from the caller
     #cmin_value = np.nanmin(z) if cmin_value is None else cmin_value
     #cmax_value = np.nanmax(z) if cmax_value is None else cmax_value
@@ -111,15 +111,15 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
     else:
         normalization_f = mpl.colors.Normalize(vmin = cmin_value,
                                              vmax = cmax_value)
-        
-    cmap = plt.get_cmap(colorpalette)    
+
+    cmap = plt.get_cmap(colorpalette)
     subplot_ax.pcolormesh(lons,lats,z,transform = ccrs.PlateCarree(),
-                          cmap = cmap, norm = normalization_f, vmin = cmin_value, 
+                          cmap = cmap, norm = normalization_f, vmin = cmin_value,
                           vmax = cmax_value)
-    
+
     try:
         gl = subplot_ax.gridlines(crs=ccrs.PlateCarree(),color = 'k',
-                              linestyle = ':', linewidth = map_properties['grid_width'], 
+                              linestyle = ':', linewidth = map_properties['grid_width'],
                               alpha=0.3, draw_labels=True)
     except:
         gl = subplot_ax.gridlines(crs=ccrs.PlateCarree(),color = 'k',
@@ -127,12 +127,12 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
                               alpha=0.3, draw_labels=False)
 
     subplot_ax.coastlines(linewidth = map_properties['coastline_width'])
-    
+
     gl.xlabels_bottom = False
     gl.ylabels_right = False
     gl.xlabel_style = {'size': map_properties['grid_label_size']}
     gl.ylabel_style = {'size': map_properties['grid_label_size']}
-    
+
     # following https://matplotlib.org/2.0.2/mpl_toolkits/axes_grid/users/overview.html#colorbar-whose-height-or-width-in-sync-with-the-master-axes
     # we need to set axes_class=plt.Axes, else it attempts to create
     # a GeoAxes as colorbar
@@ -143,15 +143,15 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
                                      axes_class=plt.Axes)
         orientation = 'vertical'
     else:
-        cax = divider.new_vertical(size = new_axis_w, pad = 0.08, 
+        cax = divider.new_vertical(size = new_axis_w, pad = 0.08,
                                    axes_class=plt.Axes,pack_start=True)
         orientation = 'horizontal'
-        
+
     f.add_axes(cax)
-    
+
     if map_properties['colorbar_show']:
         #cb_v = plt.colorbar(t1, cax=cax) could do it this way and would work: would just have to add label and tick as 2 last lines below. But would have to do arrangements anyway if we wanted it to be horizontal. So we keep as it is...
-        cb = mpl.colorbar.ColorbarBase(cax, cmap = cmap,norm = normalization_f, 
+        cb = mpl.colorbar.ColorbarBase(cax, cmap = cmap,norm = normalization_f,
                                        orientation = orientation, extend='both')
         cb.set_label(colorbar_title, size = map_properties['colorbar_title_size'])
         cb.ax.tick_params(labelsize = map_properties['colorbar_label_size'])
@@ -160,22 +160,22 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
 
 def map_single(dataarray,out_file,**kwargs):
     """Plot xarray on to a map.
- 
+
     Arguments
     ---------
     dataarray : xarray.DataArray
        xarray dataarray with data to map
     out_file : str
         Path to the output file
-    
+
     Keyword arguments
     -----------------
     colorpalette : dict
-        The name of the matplolib color pallette to use      
+        The name of the matplolib color pallette to use
     colorbar_title : dictionary
         The colorbar title
     colorbar_orien : str
-        h|v 
+        h|v
     cmin_value : numeric, optional
         Min value to use in colorbar normalization for each variable.
         Defaults to dataarray min
@@ -200,9 +200,9 @@ def map_single(dataarray,out_file,**kwargs):
     # The actual projection is set here in the subplots declaration!!!!
     proj = projections.get(kwargs['projection']) if kwargs.get('projection') else projections.get('PlateCarree')
     kwargs.pop('projection',None)
-    
+
     f, ax = plt.subplots(1, 1, subplot_kw=dict(projection=proj),figsize=map_properties['figsize'])#,dpi = 180)
- 
+
     var_kwargs = deepcopy(kwargs)
     var_kwargs['colorpalette'] = kwargs.get('colorpalette','jet')
     var_kwargs['colorbar_title'] = kwargs.get('colorbar_title',' ')
@@ -235,50 +235,64 @@ if __name__ == "__main__":
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
     config_file = sys.argv[1]
-    
+
     with open(config_file) as cf:
         config = json.load(cf)
-    
+
     dir_data = config['dir_data']
     dir_out = config['dir_out']
     projection = config['projection']
     min_obs = config.get('min_obs')
-    
+
     tables = list(config.get('tables').keys())
-   
+
     for tablei in tables:
         logging.info('Figure: {}'.format(tablei))
         dataset_path = os.path.join(dir_data,config['tables'][tablei]['nc_file'])
         out_file = os.path.join(dir_out,config['tables'][tablei]['out_file'])
         obs_file = config['tables'][tablei].get('nc_file_nobs',None)
-        
+
         if min_obs and not obs_file:
             logging.error('Path to nobs data file needs to be provided for min_obs != 0')
             sys.exit(1)
-        
+
         figure_kwargs = config['tables'].get(tablei)
 
         dataset = read_dataset(dataset_path,figure_kwargs.get('scale',1),figure_kwargs.get('offset',0))
-        
+
         if min_obs:
             dataset_obs = xr.open_dataset(os.path.join(dir_data,obs_file),autoclose=True)
-       
+
+
+        logging.info('Aggregating over time dim...')
+        if config['tables'][tablei]['average_by_vecors']==True:
+
+            dataset['sin_mean']=np.sin(np.deg2rad(dataset['mean']))
+            dataset['cos_mean']=np.cos(np.deg2rad(dataset['mean']))
+
+            if min_obs:
+                mean_arct= np.rad2deg(np.arctan2(dataset['sin_mean'].where(dataset_obs['counts'] > min_obs).mean(dim='time'), dataset['cos_mean'].where(dataset_obs['counts'] > min_obs).mean(dim='time')))
+                global_mean=xr.where(mean_arct<0, 360.+mean_arct, mean_arct)
+
+            else:
+                mean_arct= np.rad2deg(np.arctan2(dataset['sin_mean'].mean(dim='time'), dataset['cos_mean'].mean(dim='time')))
+                global_mean=xr.where(mean_arct<0, 360.+mean_arct, mean_arct)
+        else:
+            if min_obs:
+                global_mean = dataset['mean'].where(dataset_obs['counts'] > min_obs).mean(dim='time')
+            else:
+                global_mean = dataset['mean'].mean(dim='time')
+        logging.info('Number of NaNs: {}'.format(np.sum(np.isnan(global_mean))))
+        logging.info('Number of cells: {}'.format(np.shape(global_mean)))
+
         figure_kwargs.pop('nc_file')
         figure_kwargs.pop('out_file')
         figure_kwargs.pop('nc_file_nobs',None)
         figure_kwargs.pop('scale',None)
         figure_kwargs.pop('offset',None)
-        
-        logging.info('Aggregating over time dim...')
-        if min_obs:
-            global_mean = dataset['mean'].where(dataset_obs['counts'] > min_obs).mean(dim='time')
-        else:
-            global_mean = dataset['mean'].mean(dim='time')
-        
+        figure_kwargs.pop('average_by_vecors',None)
+
         figure_kwargs['normalization'] = 'linear'
         figure_kwargs['projection'] = projection
         logging.info('Plotting')
         status = map_single(global_mean,out_file, **figure_kwargs)
-
-
-
