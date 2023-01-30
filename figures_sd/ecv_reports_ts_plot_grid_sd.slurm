@@ -15,10 +15,11 @@ source ../setpaths.sh
 source ../setenv.sh
 
 # Here make sure we are using fully expanded paths, as some may be passed to a config file
-log_dir=$(readlink --canonicalize $1)
+version=$1
 script_config_file=$(readlink --canonicalize $2)
 process_list=$(readlink --canonicalize $3)
 
+log_dir=$mug_data_directory/$version/level2/log
 pyscript=$mug_code_directory/figures_sd/ecv_reports_ts_plot_grid_sd.py
 if [ ! -d $log_dir ]
 then
