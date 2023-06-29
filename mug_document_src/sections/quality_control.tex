@@ -117,6 +117,7 @@ The flags are:
 \item \texttt{Time check}: Check whether time of observation is valid (0 $\leq$ hour $\leq$ 24). 1 returned for invalid or missing times, 0 otherwise.
 \item \texttt{Date check}: Check whether date is valid and in the range 1850 to 2024. 1 returned for invalid dates or dates outside the specified range, 0 otherwise.
 \item \texttt{Location check}: Check whether location (latitude and longitude) is valid. 1 returned for latitude outside the range 90°S to 90°N or for longitude outside the range 180°W to 360°E. 1 also returned for missing data, 0 returned in all other cases.
+\item \texttt{Landlocked check}: Check whether the record is located on land according to the ICOADS `LZ' landlocked flag.
 \item \texttt{Blacklist}: Flag set to 1 for any observation matching a condition listed in table \ref{tab:blacklist}, 0 otherwise.
 \end{itemize}
 

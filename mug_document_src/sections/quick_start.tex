@@ -19,7 +19,7 @@ Moored buoy data, with the exception of the tropical arrays, tend to be more coa
 Each meteorological report in ICOADS contains observations of multiple essential climate variables (ECVs, e.g. \cite{Bojinski2014}) made at the same time and location, for example coincident measurements of the air temperature, humidity, wind speed and direction, sea surface temperature and sea level pressure.
 From the mid 2000s the record is dominated by reports from drifting buoys but these only report a small subset of the ECVs included in this service, typically only sea level pressure or sea surface temperature.
 From 2015 on, this release does not contain drifting buoy data from the ICOADS Release 3.0.2.
-A consolidated drifting buoy data record based on additional data sources such as the DBCP Drifting buoys GDAC (\cite{DBCP2022,Coriolis2021}) will be included in future releases.
+A consolidated drifting buoy data record based on additional data sources such as the C-RAID projects drifting buoy dataset (\cite{craid}) will be included in future releases.
 
 The reporting frequency ranges from hourly or more frequent in the recent period to daily observations prior to \sim 1860. 
 In the intervening period observing frequency ranged from three times per day based on the watches on board ships to 3-hourly or 6-hourly observations.
@@ -29,7 +29,7 @@ Some ships observations prior to 1982 have also been merged with the WMO-No. 47 
 Additional metadata has been extracted from the ICOADS Supplemental Data (see \cite{Freeman2017}) and documentation available on the ICOADS website.
 
 Apart from the summary information presented in this document, a detailed overview of the data contents for each of the input sources is available in the Marine Data Inventory \\
-(C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2).
+(C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2) (-TO BE UPDATED-).
 
 \subsection{Essential Climate Variables and observing methods}
 
@@ -108,13 +108,13 @@ The number of grid cells dropped from around 20,000 to around 10,000 - 12,000 by
 The contrast between the stable number of observations and decreasing spatial coverage (contrasting red and black lines in Figure \ref{fig:ecv_ts1}) is due to the change in reporting frequency from 6 hourly to 3 or 1 hourly and greater over the past 30 years, increasing the temporal sampling at the cost of spatial sampling.
 Sea level pressure and sea surface temperature experience a much smaller marked decline in spatial coverage due to the contribution of drifting buoys.
 
-It should be noted that observations for the period 1784 - 1850 were also processed as part of this release but due to missing time information and the sparseness of the data neither the quality control nor duplicate detection software has been run for this period. These data are available by selecting the "all data" option when downloading but should be used with caution.
+%It should be noted that observations for the period 1784 - 1850 were also processed as part of this release but due to missing time information and the sparseness of the data neither the quality control nor duplicate detection software has been run for this period. These data are available by selecting the "all data" option when downloading but should be used with caution.
 
 
 \begin{figure}[h]
 \includegraphics{resources/header-reports-map-optimal.png}
 \includegraphics{resources/header-months-map-optimal.png}
-\caption{Spatio-temporal distribution of marine data holdings \datatimerange{}. Left: number of reports per grid cell; right: number of months with at least 1 report. Grid size is 1x1. Note logarithmic colour scale. Only reports passing the report level QC checks flag have been included.\\}
+\caption{Spatio-temporal distribution of marine data holdings \datatimerange{}. Left: number of reports per grid cell; right: number of months with at least 1 report. Grid size is 1x1 degrees lat/lon. Note logarithmic colour scale. Only reports passing the report level QC checks flag have been included.\\}
 \label{fig:nreports-map1}
 \end{figure}
 
@@ -127,10 +127,8 @@ The data can be downloaded and accessed via the Copernicus Climate Change Servic
 The page has 3 tabs, the Overview tab presents an overview of the marine data and provides details on the data description, main and related variables available, contact email and links to licence/data policy statements. 
 The Documentation tab provides links to PDF’s of the Marine Product User Guide, Marine data inventories, Common Data Model specifications and a link to the Data Deposit Server webpage. The Download Data tab provides 6 sections that need to be completed in order to download data. The first selects one or more variables (Figure \ref{fig:cds_variable}) from the available ECVs (Table \ref{tab:ecvs}). The second selects the level of quality control to apply, selecting either those that have passed all stages of quality control or all observations (Figure \ref{fig:cds_qc}). The next three select the time period  by selecting the year (Figure \ref{fig:cds_year}), month (Figure \ref{fig:cds_month}) and day (Figure \ref{fig:cds_day}). The final selection selects the region, specifying either all data (global) or selecting observations within a bounding box (Figure \ref{fig:cds_area}).
 
-Data can additionally be downloaded using the CDS Python API. Selecting the \texttt{Show API request} button reveals the API commands to use for the given selection (Figure \ref{fig:cds_api}). More information can be found at:
-\begin{center}
-\url{https://cds.climate.copernicus.eu/api-how-to}
-\end{center}
+Data can additionally be downloaded using the CDS Python API. Selecting the \texttt{Show API request} button reveals the API commands to use for the given selection. Example code can be found in Figure~\ref{fig:cds_api}.
+More information can be found at \url{https://cds.climate.copernicus.eu/api-how-to}
 
 \FloatBarrier
 \begin{figure}[h]
@@ -188,14 +186,33 @@ Data can additionally be downloaded using the CDS Python API. Selecting the \tex
 %\end{center}
 \end{figure}
 
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.75\textwidth]{resources/cds_api_request.png}
+%\caption{Example API request to download data from the Global Land And Marine Observations Database.\\}
+%\label{fig:cds_api}
+%\end{figure}
+
 \begin{figure}
-\centering
-%\begin{center}
-\includegraphics[width=0.75\textwidth]{resources/cds_api_request.png}
+\begin{verbatim}
+import cdsapi
+c = cdsapi.Client()
+c.retrieve(
+    'in-situ-observatins-surface-marine',
+    {
+        'format': 'csv-obs.zip',
+        'day': '07',
+        'month': '01',
+        'year': '1898',
+        'data_quality': 'quality_controlled',
+        'variable': 'water_temperature',
+    },
+    'download.csv-obs.zip')
+\end{verbatim}
 \caption{Example API request to download data from the Global Land And Marine Observations Database.\\}
 \label{fig:cds_api}
-%\end{center}
 \end{figure}
+
 
 \FloatBarrier
 \subsection{Data model}

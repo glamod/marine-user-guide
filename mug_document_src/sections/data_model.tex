@@ -1,6 +1,6 @@
 \section{Data model and formats} \label{data_model}
 Data from the Climate Data Store are returned in delimited text files (.csv), with 19 columns per row and one observed value per row. 
-The columns are listed in table \ref{tab:cdm_lite_main} together with a brief description.  
+The columns are listed in Table \ref{tab:cdm_lite_main} together with a brief description.  
 The date and time of the observation is given by the \code{date\_time} column, with the value returned as a string of the format \code{YYYY-MM-DD hh:mm:ss}. 
 All data are returned in the UTC time zone.
 The location of the observation is given by the \code{latitude} and \code{longitude} columns in the WGS84 / EPSG4326 coordinate reference system. 
@@ -19,3 +19,59 @@ The remaining columns provide further contextual information for the observation
     separator=semicolon,
     late after line=\\ \hline
 ]{./data_model/cdm_lite.csv}{1=\Field,2=\Kind,3=\Description}{\Field & \Kind & \Description }
+
+
+\begin{table}[h]
+\begin{center}
+\caption{Meaning of platform\_type variable. Note: Settings 0-4 are derived from the “OSV or Ship Indicator” in NCDC (1968); Settings 0-1 are very poorly documented and probably should be regarded as equivalent to ship data (value=5). As used by ICOADS.}
+\begin{tabular}{|l | l|} 
+\hline
+\bfseries Flag Value & \bfseries Meaning \\ 
+\hline
+0 & US Navy or “deck” log, or unknown\\ 
+\hline
+1 & Merchant ship or foreign military\\ 
+\hline
+2 & Ocean station vessel—off station or station proximity unknown\\ 
+\hline
+3 & Ocean station vessel—on station\\ 
+\hline
+4 & Lightship\\ 
+\hline
+5 & Ship\\ 
+\hline
+6 & Moored buoy\\ 
+\hline
+7 & Drifting buoy\\ 
+\hline
+8 & Ice buoy [note: currently unused]\\ 
+\hline
+9 & Ice station (manned, including ships overwintering in ice)\\ 
+\hline
+10 & Oceanographic station data (bottle and low-resolution CTD/XCTD data)\\ 
+\hline
+11 & Mechanical/digital/micro bathythermograph (MBT)\\ 
+\hline
+12 & Expendable bathythermograph (XBT)\\ 
+\hline
+13 & Coastal-Marine Automated Network (C-MAN) (NDBC operated)\\ 
+\hline
+14 & Other coastal/island station\\ 
+\hline
+15 & Fixed (or mobile) ocean platform (plat, rig)\\ 
+\hline
+16 & Tide gauge\\ 
+\hline
+17 & High-resolution Conductivity-Temp.-Depth (CTD)/Expendable CTD (XCTD)\\ 
+\hline
+18 & Profiling float\\ 
+\hline
+19 & Undulating oceanographic recorder\\ 
+\hline
+20 & Autonomous pinneped bathythermograph\\ 
+\hline
+21 & Glider\\ 
+\hline
+\end{tabular}
+\end{center}
+\end{table}
