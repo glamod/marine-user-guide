@@ -23,8 +23,8 @@ As part of this development, and the evolving observing system, COADS has expand
 Examples include measurements from moored and drifting buoys, coastal stations and offshore platforms, all shared internationally in real time over the WMO Global Telecommunication System (GTS) and in delayed mode through Global Data Assembly Centres.
 The development has also included blending COADS with other national archives and delayed mode data sources, such as the UK Met Office marine data bank.
 In recognition of the importance of the international contributions COADS was renamed as the International Comprehensive Ocean - Atmosphere Data Set (ICOADS) in 2002 (e.g. \cite{Worley2005}). 
-The current major release of ICOADS, release 3.0, was published in 2017 \cite{Freeman2017}, releasing observations up to the end of 2014.
-Near realtime updates for the period after 2014 are available from ICOADS Release 3.0.2 \cite{Liu2022}.
+The current major release of ICOADS, release 3.0, was published in 2017 (\cite{Freeman2017}), releasing observations up to the end of 2014.
+Near realtime updates for the period after 2014 are available from ICOADS Release 3.0.2 (\cite{Liu2022}).
 The ICOADS near realtime updates contain regular releases of marine observations, updated within the first 10 days of the most current month. The near realtime observations are based on blended marine observations in the TAC and BUFR formats from NOAA's National Centers for Environmental Information (NCEI) GTS collections. 
 
 % processing applied by ICOADS
@@ -34,7 +34,7 @@ For example, some duplicates are missed due to one archive recording the latitud
 These decisions have been revisited as part of this service, with the available ICOADS source files (known as "total" files within the NCEI/ICOADS archives) reprocessed and the data flagged appropriately.
 This processing is described in Section \ref{processing}.
 The original source of the data is recorded in ICOADS with the data accessions indexed by "deck" (DCK) and "source" (SID) identifiers (\cite{Woodruff1987}, \cite{Freeman2017}). 
-A detailed summary of the data accessions is given in the marine inventory (C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2) available from the CDS website.
+A detailed summary of the data accessions is given in the marine inventory (C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2) (-TO BE UPDATED-) available from the CDS website.
 
 \subsection{Selection of data for inclusion in Service}
 As part of the development of this service the input sources and decks contributing observations to ICOADS have been prioritised and reprocessed based on the volume of observations, spatial / temporal coverage and availability of ECVs.
@@ -46,11 +46,15 @@ Release 2 sought to extend the record backwards to 1851, including all available
 
 Release 3 updated the record to the end of 2014. 
 
-Release 4, updated the record to the end of 2020 using the observations from ICOADS Release 3.0.1, including a full reprocessing of the data from the previous releases. As part of this reprocessing additional metadata has been recovered for some of the earlier records and the observations for the period.
+Release 4 updated the record to the end of 2020 using the observations from ICOADS Release 3.0.1, including a full reprocessing of the data from the previous releases. As part of this reprocessing additional metadata has been recovered for some of the earlier records and the observations for the period.
 
-Release 5, that is described in this guide, updates the record to the end of 2021 using the observations from ICOADS Release 3.0.2, adding near realtime data updates including decoded BUFR messages from 2015 onwards.
+Release 5 updated the record to the end of 2021 using the observations from ICOADS Release 3.0.2, adding near realtime data updates including decoded BUFR messages from 2015 onwards.
+
+Release 6, the most recent at the time, updated the record to the end of 2022 using the observations from ICOADS Release 3.0.2, migrated the data processing to the Irish Center for High-end Computing and fixed a bug where the additional metadata was not added in the past. The metadata has been added to the previous releases as a post-processing step.
+
 Drifting buoy data from the ICOADS Release 3.0.2 are not included in this release.
-A consolidated drifting buoy data record based on additional data sources such as the DBCP Drifting buoys GDAC (\cite{DBCP2022,Coriolis2021}) will be processed and included in future releases.
+A consolidated drifting buoy data record based on additional data sources such as the C-RAID Drifting buoys (\cite{craid}) will be processed and included in future releases.
+
 The marine inventory (C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2, available from the CDS website) gives a detailed overview of the contents from each data source used in this release.
 
 Figure \ref{fig:nreports-ts} shows the monthly number of reports available in the current release. 
@@ -89,13 +93,12 @@ Users requiring access to these data are recommended to access data directly fro
 \FloatBarrier
 \subsection{Metadata}
 \subsubsection{WMO Publication Number 47 and other metadata}
-WMO Publication No. 47 (https://www.wmo.int/pages/prog/www/ois/pub47/pub47-home.htm), the International List of Selected, Supplementary and Auxiliary Ships, contains metadata on the ships, and observing methods used by those ships contributing to the WMO Voluntary Observing Ships Programme. 
+WMO Publication No. 47 (https://www.ocean-ops.org/share/SOT/PUB47/), the International List of Selected, Supplementary and Auxiliary Ships, contains metadata on the ships, and observing methods used by those ships contributing to the WMO Voluntary Observing Ships Programme. 
 A summary of the information available in WMO Publication No. 47 can be found in \cite{Kent2007}. 
 This includes information on the ship dimensions and types, type(s) of instruments used, location of the sensors on board the ships and height of the sensors above the sea surface.  
-A subset of the metadata from WMO Publication No. 47 has been included in ICOADS since Release 2.5 based on a basic match between the reports in ICOADS and the WMO Publication 47 edition coincident with the observation (\cite{Kent2007}, \cite{Woodruff2011}.
+A subset of the metadata from WMO Publication No. 47 has been included in ICOADS since Release 2.5 based on a basic match between the reports in ICOADS and the WMO Publication 47 edition coincident with the observation (\cite{Kent2007}, \cite{Woodruff2011}).
 
-As part of C3S2 311 Lot 1 the WMO Publication 47 metadata has been reprocessed and selected fields, primarily ship names and instrument heights, have been included in this release. 
-The set of metadata included in the data releases may be extended in subsequent releases, depending on the representation of the data model in the CDS.
+As part of C3S2 311 Lot 1 the WMO Publication 47 metadata has been reprocessed and selected fields, including ship names, types and instrument heights, have been included in this release. 
 During the reprocessing duplicate records have been combined, reducing the number of records from around 875 000 to 255 000 over the period 1956 - 2020. 
 Validity dates have been added, with the first record for a given ship extended by 1 year prior to its first appearance and the final record extended by 5 years. 
 This allows for a period of time between a ship being recruited and it first appearing in WMO Publication No. 47 and a period where a ship continues reporting but is no longer registered by the original recruiting country. 
@@ -114,8 +117,8 @@ Between 1970 and 2020 the median observation height increases from \sim 15 m to 
 
 The decrease in the proportion of observations with a known height from \sim 2014 is due to a decrease in the availability of call signs in the observational data due to call sign masking and use of generic call signs (such as SHIP) in response to security and commercial concerns of the participating Voluntary Observing Ships.
 Metadata for the air temperature, humidity and wind speed observations does not become available until the 1960s although the observing heights are expected to be similar to that for pressure. 
-From the 1970s onwards the change in heights (not shown) shows a similar trend to sea level pressure, with the temperature and humidity heights increasing from \sim 15m to \sim 27m. 
-The increase in wind speed height is greater (not shown), increasing from \sim 15 m in the early 1970s to almost 35m by 2020.
+From the 1970s onwards the change in heights (not shown) shows a similar trend to sea level pressure, with the temperature and humidity heights increasing from \sim 15~m to \sim 27~m. 
+The increase in wind speed height is greater (not shown), increasing from \sim 15~m in the early 1970s to almost 35~m by 2020.
 
 \begin{figure}[h]
     \includegraphics[width=18cm]{resources/brmh.png}
@@ -146,7 +149,7 @@ However, biases have been identified in the 19th Century and earlier data due to
     \label{fig:at-map}
 \end{figure}
 \FloatBarrier
-Another factor that could lead to biases are systematic changes in the height at which the observations are made. The average observation height on merchant ship has has changed substantially over the period, ranging from \sim 4 - 5m in the late 1800s, increasing to \sim 30m in the late 2000s (\cite{Kent2007}, \cite{ Kent2013NMAT}). 
+Another factor that could lead to biases are systematic changes in the height at which the observations are made. The average observation height on merchant ship has has changed substantially over the period, ranging from \sim 4~-~5~m in the late 1800s, increasing to \sim 30~m in the late 2000s (Figure~\ref{fig:slp_heights}, \cite{Kent2007}, \cite{ Kent2013NMAT}). 
 Adjustments to a fixed reference height are required to avoid inhomogeneities in the record and leading to underestimation of trends in the data. 
 Adjustments are typically made based on Monin-Obukhov similarity theory and the approximation of a constant flux layer near the surface (e.g. \cite{Businger1971}). 
 Observing heights are included with the observations where known but adjustments have not been made as part of this service.
@@ -162,7 +165,7 @@ Observing heights are included with the observations where known but adjustments
 \FloatBarrier
 \subsubsection{Sea surface temperature}
 Figure \ref{fig:sst-map} shows climatological values of the mean sea surface temperature over the period \datatimerange{} (left) and the number of months with at least 1 observation on a 1x1 grid (right).
-The clustering over the major shipping routes is clearly visible but with better sampling away from the shipping lanes due to the sampling by drifting buoys.
+The clustering over the major shipping routes is clearly visible but with better sampling than before away from the shipping lanes due to the sampling by drifting buoys.
 Sea surface temperature observations have been historically made using a wide variety of methods, ranging from wooden, canvas and rubber buckets to infrared radiometers. 
 The most common methods are the bucket based and engine intake methods, both of which suffer from biases (\cite{Kent2017}). 
 Due to evaporative and conductive cooling the water samples in the buckets can be biased low compared to the true sea surface temperature. 
