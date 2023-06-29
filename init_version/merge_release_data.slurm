@@ -6,13 +6,15 @@
 # ./merge_release_data.slurm version script_config_file process_list
 
 # ------------------------------------------------------------------------------
-queue=short-serial
-t=01:00:00
-mem=100
-om=truncate
+#queue=short-serial
+#t=01:00:00
+#mem=100
+#om=truncate
 # ------------------------------------------------------------------------------
 source ../setpaths.sh
 source ../setenv.sh
+
+#Do the sourcing before!
 
 # Here make sure we are using fully expanded paths, as some may be passed to a config file
 version=$1
@@ -32,6 +34,7 @@ echo "LOG directory is $log_dir"
 
 for sid_dck in $(awk '{print $1}' $process_list)
 do
+  echo "$sid_dck"
   log_dir_sd=$log_dir/$sid_dck
   if [ ! -d $log_dir_sd ]
   then
@@ -40,10 +43,20 @@ do
   fi
 
   J=$sid_dck
-  log_file=$log_dir_sd/merge_release_data.ok
+  log_file=$log_dir_sd/merge_release_data.log
   if [ -f "$log_file" ];then rm $log_file;fi
   failed_file=$log_dir_sd/merge_release_data.failed
   if [ -f "$failed_file" ];then rm $failed_file;fi
-  jid=$(sbatch -J $J -o $log_file -e $log_file -p $queue -t $t --mem $mem --open-mode $om --wrap="python $pyscript $sid_dck")
-  sbatch --dependency=afternotok:${jid##* } --kill-on-invalid-dep=yes -p $queue -t 00:05:00 --mem 1 --open-mode $om --wrap="mv $log_file $failed_file"
+  ok_file=$log_dir_sd/merge_release_data.ok
+  if [ -f "$ok_file" ];then 
+    echo "$ok_file exists, proceeding to next (no rerun)"
+  else
+    #jid=$(sbatch -J $J -o $log_file -e $log_file -p $queue -t $t --mem $mem --open-mode $om --wrap="python $pyscript $sid_dck")
+    #sbatch --dependency=afternotok:${jid##* } --kill-on-invalid-dep=yes -p $queue -t 00:05:00 --mem 1 --open-mode $om --wrap="mv $log_file $failed_file"
+    if python $pyscript $sid_dck > $log_file; then
+      mv $log_file $ok_file
+    else
+      mv $log_file $failed_file
+    fi
+  fi
 done

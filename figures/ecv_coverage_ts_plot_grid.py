@@ -22,6 +22,9 @@ logging.getLogger('plt').setLevel(logging.INFO)
 logging.getLogger('mpl').setLevel(logging.INFO)
 
 # PARAMS ----------------------------------------------------------------------
+
+DTMEAN = 12
+
 # Set plotting defaults
 plt.rc('legend',**{'fontsize':12})        # controls default text sizes
 plt.rc('axes', titlesize=12)     # fontsize of the axes title
@@ -36,7 +39,7 @@ def flip(items, ncol):
 
 if __name__ == "__main__":
 
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     config_file = sys.argv[1]
     
@@ -66,8 +69,8 @@ if __name__ == "__main__":
     header_n_cells = hdr_dataset['counts'].where(hdr_dataset['counts'] > 0).count(dim=['longitude','latitude'])
     header_n_reports = hdr_dataset['counts'].sum(dim=['longitude','latitude'])
     if filtered:
-        header_n_cells = header_n_cells.rolling(time=12, center=True).mean()
-        header_n_reports = header_n_reports.rolling(time=12, center=True).mean()
+        header_n_cells = header_n_cells.rolling(time=DTMEAN, center=True).mean()
+        header_n_reports = header_n_reports.rolling(time=DTMEAN, center=True).mean()
         
     
     f, ax = plt.subplots(3, 2, figsize=(10,10),sharex=True,sharey=True)# 
@@ -84,8 +87,8 @@ if __name__ == "__main__":
         n_reports = dataset['counts'].sum(dim=['longitude','latitude'])
         if filtered:
             logging.info('...filtering time series')
-            n_cells = n_cells.rolling(time=12, center=True).mean()
-            n_reports = n_reports.rolling(time=12, center=True).mean()
+            n_cells = n_cells.rolling(time=DTMEAN, center=True).mean()
+            n_reports = n_reports.rolling(time=DTMEAN, center=True).mean()
            
         logging.info('...plotting time series')
         header_n_reports.plot(ax=ax[r,c],color=n_reports_color,zorder = 1 ,label='#reports',linewidth=5,alpha=0.15)
@@ -102,6 +105,7 @@ if __name__ == "__main__":
         
         if log_scale_reports:
             ax[r,c].set_yscale('log')
+            ax[r,c].set_ybound([1,2e6])
         if log_scale_cells:
             ax2[r,c].set_yscale('log')
         

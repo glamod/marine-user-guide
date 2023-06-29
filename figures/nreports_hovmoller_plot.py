@@ -41,7 +41,7 @@ def is_season_center(month,season):
 
 if __name__ == "__main__":
 
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 #    dir_data = sys.argv[1]
 #    dir_out = sys.argv[2]
     config_file = sys.argv[1]
@@ -81,7 +81,7 @@ if __name__ == "__main__":
         #try (to resample to yearly): da.resample(time="AS").sum() -> not straighforward to keep x,y dims 
         for season in ['DJF','MAM','JJA','SON']:
             dataset[season] = dataset['3_mon_counts'].sel(time=is_season_center(dataset['time.month'],season)).sum(dim='longitude')
-        
+            logging.info(len(dataset[season]))
         # Normalize colorbar counts for all tables with respect to total number
         # of reports (header reports)
         min_counts = 1
@@ -94,9 +94,16 @@ if __name__ == "__main__":
         # Do a grid with the seasonal Hovmoller
         f, axes = plt.subplots(nrows=2, ncols=2, figsize=figsize)
         for i, season in enumerate(['DJF','MAM','JJA','SON']):
+            logging.info('Season: {}'.format(season))
             c = 0 if i%2 == 0 else 1
             r = int(i/2)
-            dataset[season].sel(time=is_season_center(dataset['time.month'],season)).where(dataset[season]>0).plot.pcolormesh(x = 'time', y = 'latitude',vmin=min_counts,
+            logging.info('Season data: {}'.format(dataset[season]))
+            logging.info('isseasoncenter: {}'.format(is_season_center(dataset['time.month'],season)))
+            #logging.info('Season.sel: {}'.format(dataset[season].sel(time=is_season_center(dataset['time.month'],season))))
+            logging.info('Season.sel.where: {}'.format(dataset[season].sel(time=is_season_center(dataset['time.month'],season)).where(dataset[season]>0)))
+            if any(is_season_center(dataset['time.month'],season)):
+                #this breaks if used with too short (~ <=1 year) ts.
+                dataset[season].sel(time=is_season_center(dataset['time.month'],season)).where(dataset[season]>0).plot.pcolormesh(x = 'time', y = 'latitude',vmin=min_counts,
                        vmax=max_counts_sea, cmap=colorbar,norm = normalization_f_sea,add_colorbar=True,
                        extend='both',ax=axes[c,r],cbar_kwargs={'label':cbar_label})
             axes[c,r].set_title(season)
@@ -115,6 +122,7 @@ if __name__ == "__main__":
         else:
             axes.set_title(var_properties.var_properties['short_name_upper'][param])
         axes.tick_params(axis='x',labelbottom=True,labelrotation=0) 
+        axes.set_xlim([start, stop])
         f.tight_layout(rect=[0, 0.03, 1, 0.95])
         fig_path = os.path.join(dir_out,table + '-' + file_out_id_mon)
         plt.savefig(fig_path,bbox_inches='tight',dpi = 150)

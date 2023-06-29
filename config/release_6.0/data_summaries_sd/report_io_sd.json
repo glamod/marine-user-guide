@@ -1,0 +1,6 @@
+{ "dir_data":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v6.0/level2",
+  "dir_out":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v6.0/level2/reports",
+  "dir_level1a_ql":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v6.0/level1a/quicklooks",
+  "dir_level1c_ql":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v6.0/level1c/quicklooks",
+  "periods_file":"/ichec/work/glamod/marine-user-guide.2022/config/release_6.0//mug_config.json"
+}

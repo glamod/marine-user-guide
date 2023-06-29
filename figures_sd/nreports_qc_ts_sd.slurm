@@ -8,10 +8,10 @@
 # ./nreports_qc_ts_sd.slurm log_dir script_config_file process_list
 
 # ------------------------------------------------------------------------------
-queue=short-serial
-t=00:05:00
-mem=100
-om=truncate
+#queue=short-serial
+#t=00:05:00
+#mem=100
+#om=truncate
 # ------------------------------------------------------------------------------
 source ../setpaths.sh
 source ../setenv.sh
@@ -33,6 +33,7 @@ do
   J=$sid_dck
   log_file=$log_dir_sd/$(basename $script_config_file .json)".ok"
   failed_file=$log_dir_sd/$(basename $script_config_file .json)".failed"
-  jid=$(sbatch -J $J -o $log_file -e $log_file -p $queue -t $t --mem $mem --open-mode $om --wrap="python $pyscript $sid_dck $script_config_file")
-  sbatch --dependency=afternotok:${jid##* } --kill-on-invalid-dep=yes -p $queue -t 00:05:00 --mem 1 --open-mode $om --wrap="mv $log_file $failed_file"
+  #to be replaced
+  #jid=$(sbatch -J $J -o $log_file -e $log_file -p $queue -t $t --mem $mem --open-mode $om --wrap="python $pyscript $sid_dck $script_config_file")
+  #sbatch --dependency=afternotok:${jid##* } --kill-on-invalid-dep=yes -p $queue -t 00:05:00 --mem 1 --open-mode $om --wrap="mv $log_file $failed_file"
 done

@@ -10,6 +10,8 @@ import sys
 import json
 import logging
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 #plt.switch_backend('agg')
 import datetime

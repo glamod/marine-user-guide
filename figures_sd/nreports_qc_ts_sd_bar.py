@@ -9,6 +9,8 @@ import json
 import sys
 import os
 import logging
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 #plt.switch_backend('agg')
 import pandas as pd

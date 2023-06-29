@@ -1,0 +1,36 @@
+{ "dir_data":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v456.0/level2",
+  "dir_out":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v456.0/level2/reports",
+  "dir_level1a_ql":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v456.0/level1a/quicklooks",
+  "dir_level1c_ql":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v456.0/level1c/quicklooks",
+  "periods_file_io":"/ichec/work/glamod/marine-user-guide.2022/config/release_456/mug_config.json",
+  "start":1800,
+  "stop":2022,
+  "id_out":"all",
+  "region":"Global",
+  "resolution":"lo_res",
+  "observations-at":
+    {
+    "average_by_vecors": false
+    },
+  "observations-dpt":
+    {
+    "average_by_vecors": false
+    },
+  "observations-slp":
+    {
+    "average_by_vecors": false
+    },
+  "observations-sst":
+    {
+    "average_by_vecors": false
+    },
+  "observations-wd":
+    {
+    "average_by_vecors": true
+    },
+  "observations-ws":
+    {
+    "average_by_vecors": false
+    }
+}
+

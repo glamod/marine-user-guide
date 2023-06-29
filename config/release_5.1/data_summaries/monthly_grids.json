@@ -1,0 +1,43 @@
+{ "dir_data":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v5.1/level2",
+  "dir_out":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v5.1/level2/reports",
+  "start":2021,
+  "stop":2021,
+  "id_out":"optimal",
+  "region":"Global",
+  "resolution":"lo_res",
+  "header":
+{
+    "filter_by_values":{"header.report_quality":[0]},
+    "average_by_vecors": false
+},
+  "observations-at":
+{
+    "filter_by_values":{"header.report_quality":[0],"observations-at.quality_flag":[0]},
+  "average_by_vecors": false
+},
+"observations-dpt":
+{
+  "filter_by_values":{"header.report_quality":[0],"observations-dpt.quality_flag":[0]},
+  "average_by_vecors": false
+},
+"observations-slp":
+{
+  "filter_by_values":{"header.report_quality":[0],"observations-slp.quality_flag":[0]},
+  "average_by_vecors": false
+},
+"observations-sst":
+{
+  "filter_by_values":{"header.report_quality":[0],"observations-sst.quality_flag":[0]},
+  "average_by_vecors": false
+},
+"observations-wd":
+{
+  "filter_by_values":{"header.report_quality":[0],"observations-wd.quality_flag":[0]},
+  "average_by_vecors": true
+},
+"observations-ws":
+{
+  "filter_by_values":{"header.report_quality":[0],"observations-ws.quality_flag":[0]},
+  "average_by_vecors": false
+}
+}

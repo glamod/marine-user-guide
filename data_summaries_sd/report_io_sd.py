@@ -42,7 +42,7 @@ def main():
         config = json.load(fO)  
         
     kwargs_query['dir_data'] = config['dir_data']
-    periods_file = config['periods_file']
+    periods_file = config['periods_file_io']
     
     sd_paths = {}
     sd_paths['dir_data'] = os.path.join(config['dir_data'],sid_dck)

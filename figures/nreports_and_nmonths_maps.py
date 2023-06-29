@@ -113,17 +113,19 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
     try:
         gl = subplot_ax.gridlines(crs=ccrs.PlateCarree(),color = 'k',
                                linestyle = ':', linewidth = map_properties['grid_width'],
-                               alpha=0.3, draw_labels=True)
+                                  alpha=0.4, draw_labels=False)
+        #gl.bottom_labels = True
+        #gl.top_labels = False
+        #gl.right_labels = False
+        #gl.left_labels = True
 
     except:
         gl = subplot_ax.gridlines(crs=ccrs.PlateCarree(),color = 'k',
                               linestyle = ':', linewidth = map_properties['grid_width'],
-                              alpha=0.3, draw_labels=False)
+                              alpha=0.4, draw_labels=False)
 
     subplot_ax.coastlines(linewidth = map_properties['coastline_width'])
 
-    gl.xlabels_bottom = False
-    gl.ylabels_right = False
     gl.xlabel_style = {'size': map_properties['grid_label_size']}
     gl.ylabel_style = {'size': map_properties['grid_label_size']}
 
@@ -227,7 +229,7 @@ def map_single(dataarray,out_file,**kwargs):
 
 if __name__ == "__main__":
 
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     config_file = sys.argv[1]
 
     with open(config_file) as cf:
@@ -243,7 +245,7 @@ if __name__ == "__main__":
         logging.info('Figure: {}'.format(tablei))
         dataset_path = os.path.join(dir_data,config['tables'][tablei]['nc_file'])
 
-        dataset = xr.open_dataset(dataset_path,autoclose=True)
+        dataset = xr.open_dataset(dataset_path)
         logging.info('Aggregating over time dim...')
         global_nobs = dataset['counts'].sum(dim='time')
         global_nmonths = (dataset['counts']>=min_obs).sum(dim = 'time')

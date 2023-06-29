@@ -1,0 +1,60 @@
+{
+    "063-714": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": ["observations-at","observations-dpt","observations-ws","observations-wd"]  
+    },
+    "103-792": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": []
+    
+    },
+    "109-708": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": []
+    
+    },
+    "112-926": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": []
+    
+    },
+    "113-927": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": []
+    
+    },
+    "114-992": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": []
+    
+    },
+    "146-700": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": []
+    
+    },                        
+    "147-700": {
+        "year_init": 2011,
+        "year_end": 2014,
+        "exclude": false,
+        "params_exclude": []
+    
+    },
+    "params_exclude": ["observations-wbt"],
+    "year_init": 2011,
+    "year_end": 2014
+}

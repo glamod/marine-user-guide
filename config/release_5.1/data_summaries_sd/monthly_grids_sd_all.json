@@ -1,0 +1,33 @@
+{ "dir_data":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v5.1/level2",
+  "dir_out":"/ichec/work/glamod/data/marine/marine-user-guide.2022/v5.1/level2/reports",
+  "start":2015,
+  "stop":2021,
+  "id_out":"all",
+  "region":"Global",
+  "resolution":"lo_res",
+  "observations-at":
+    {
+    "average_by_vecors": false
+    },
+  "observations-dpt":
+    {
+    "average_by_vecors": false
+    },
+  "observations-slp":
+    {
+    "average_by_vecors": false
+    },
+  "observations-sst":
+    {
+    "average_by_vecors": false
+    },
+  "observations-wd":
+    {
+    "average_by_vecors": true
+    },
+  "observations-ws":
+    {
+    "average_by_vecors": false
+    }
+}
+

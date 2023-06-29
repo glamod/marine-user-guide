@@ -118,8 +118,13 @@ def main():
     files_list = sorted(glob.glob(os.path.join(dir_in,'-'.join([table,'????','??',kwargs['cdm_id']]) + '.psv' )))
     if len(files_list) == 0:
         if table == 'header':
-            logging.error('NO DATA FILES FOR HEADER TABLE IN DIR {}'.format(dir_in))
-            sys.exit(1)
+            if config.get('start',1600)==0 and config.get('stop',2100)==0:
+                #if the periods file sets the start and stop to year 0 (i.e. we know there is no data) we get a warning
+                #else (i.e. we might not be aware that there is no data), we get an error instead
+                logging.waring('NO DATA FILES FOR HEADER TABLE IN DIR {}'.format(dir_in))
+            else:
+                logging.error('NO DATA FILES FOR HEADER TABLE IN DIR {}'.format(dir_in))
+                sys.exit(1)
         else:
             logging.warning('NO DATA FILES FOR TABLE {0} IN DIR {1}'.format(table,dir_in))
             sys.exit(0)
@@ -180,27 +185,27 @@ def main():
         if len_table > LEN_DD:
             os.remove(parq_path)
 
+    if len(nreports_list)>=1:
+        if table == 'header':
+            counts_buoys_agg = xr.concat(nreports_buoys_list,dim = 'time')
+            counts_ships_agg = xr.concat(nreports_ships_list,dim = 'time')
+            for agg in ['counts_buoys','counts_ships']:
+                out_file = os.path.join(dir_out,'-'.join([table,agg + '_grid_ts',config['id_out'] + '.nc']))
+                to_nc(eval(agg + '_agg'),'counts',out_file)
+        else:
+            mean_agg = xr.concat(mean_list,dim = 'time')
+            max_agg = xr.concat(max_list,dim = 'time')
+            min_agg = xr.concat(min_list,dim = 'time')
+            for agg in ['mean','max','min']:
+                out_file = os.path.join(dir_out,'-'.join([table,agg + '_grid_ts',config['id_out'] + '.nc']))
+                to_nc(eval(agg + '_agg'),agg,out_file)
 
-    if table == 'header':
-        counts_buoys_agg = xr.concat(nreports_buoys_list,dim = 'time')
-        counts_ships_agg = xr.concat(nreports_ships_list,dim = 'time')
-        for agg in ['counts_buoys','counts_ships']:
-            out_file = os.path.join(dir_out,'-'.join([table,agg + '_grid_ts',config['id_out'] + '.nc']))
-            to_nc(eval(agg + '_agg'),'counts',out_file)
+        nreports_agg = xr.concat(nreports_list,dim = 'time')
+        out_file = os.path.join(dir_out,'-'.join([table,'reports_grid_ts',config['id_out'] + '.nc']))
+        to_nc(nreports_agg,'counts',out_file)
 
     else:
-        mean_agg = xr.concat(mean_list,dim = 'time')
-        max_agg = xr.concat(max_list,dim = 'time')
-        min_agg = xr.concat(min_list,dim = 'time')
-        for agg in ['mean','max','min']:
-            out_file = os.path.join(dir_out,'-'.join([table,agg + '_grid_ts',config['id_out'] + '.nc']))
-            to_nc(eval(agg + '_agg'),agg,out_file)
-
-
-    nreports_agg = xr.concat(nreports_list,dim = 'time')
-    out_file = os.path.join(dir_out,'-'.join([table,'reports_grid_ts',config['id_out'] + '.nc']))
-    to_nc(nreports_agg,'counts',out_file)
-
+        logging.warning('All files out of defined period for {}. No .nc file created'.format(table))
 
 if __name__ == "__main__":
     main()

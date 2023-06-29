@@ -39,7 +39,8 @@ if __name__ == "__main__":
     
     file_data = config['file_data']
     file_out = config['file_out']
-
+    year_init = int(config['year_init'])
+    year_end = int(config['year_end'])
     data = pd.read_csv(file_data,delimiter='|',header = 0,index_col=[0],parse_dates=[0])
     
     y_med = data['nreports'].max()/2
@@ -57,7 +58,7 @@ if __name__ == "__main__":
 #    ax.text(datetime.datetime(1890,1,1),70,'Release 2',fontsize=16,style='italic')
     
     ax.ticklabel_format(axis='y', style='sci',scilimits=(-3,4))
-    ax.set_xlim(datetime.datetime(1851,1,1),datetime.datetime(2021,12,31))
+    ax.set_xlim(datetime.datetime(year_init,1,1),datetime.datetime(year_end,12,31))
     ax.set_ylim(0,100)
     ax.grid(alpha=0.3,color='k',linestyle=':')
     ax.legend(loc='lower left',facecolor = 'white')

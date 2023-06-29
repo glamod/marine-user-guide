@@ -18,7 +18,8 @@ import numpy as np
 import logging
 import sys
 import itertools
-
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 #plt.switch_backend('agg')
 
@@ -67,9 +68,9 @@ def flip(items, ncol):
 #    return dataset
 
 def read_dataset(file_path,agg,scale=None,offset=None):  
-    dataset = xr.open_dataset(file_path,autoclose=True)
+    dataset = xr.open_dataset(file_path)
     if agg != 'counts':
-        dataset[agg] = offset + scale*dataset[agg]    
+        dataset[agg] = offset + scale*dataset[agg]  
     return dataset    
 
 def create_lat_bands(dataset,agg=None):
@@ -217,7 +218,7 @@ def main():
         
         # Exit if no data
         if not os.path.isfile(counts_all_file):
-            logging.warning('No maps found for all report types')
+            logging.warning('No maps found for all report types at {}'.format(counts_all_file))
             logging.warning('Empty ts will not be produced')
             no_empty += 1
             continue
