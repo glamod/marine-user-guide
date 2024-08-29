@@ -29,7 +29,7 @@ Some ships observations prior to 1982 have also been merged with the WMO-No. 47 
 Additional metadata has been extracted from the ICOADS Supplemental Data (see \cite{Freeman2017}) and documentation available on the ICOADS website.
 
 Apart from the summary information presented in this document, a detailed overview of the data contents for each of the input sources is available in the Marine Data Inventory \\
-(C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2) (-TO BE UPDATED-).
+(\inventoryref{}).
 
 \subsection{Essential Climate Variables and observing methods}
 
@@ -41,7 +41,7 @@ This rounding for operational data streams persisted until the 1980s (e.g. \cite
 Later observations were typically recorded and shared with precisions of tenths or higher.
 As part of the processing to create ICOADS (and earlier datasets) the observations were converted to standardised units (°C for temperatures, hPa for pressure and m/s for speeds) and uniform resolution, typically to one or two decimal places.
 These have been further processed as part of the GLAMOD service and fully converted to S.I. units.
-Where recorded, the originally reported value and units will be made available.
+Where recorded, the originally reported value and units of the observations can be traced back to the original input data.
 There are known issues with the marine meteorological observations, these are discussed further in Section \ref{data_sources}.
 No corrections or adjustments have been applied as part of this service, instead the user is directed to the literature identified within Section \ref{data_sources}.
 
@@ -94,7 +94,7 @@ From 2015 on, drifting buoys are not included in this release, resulting in a dr
 \centering
 %\begin{center}
     \includegraphics[width=0.75\textwidth]{resources/ecv_coverage_ts_grid.png}
-    \caption{Availability of ECVs listed in Table \ref{tab:ecvs} by time. Both the number of observations (red) and number of grid cells (black) with data are shown. Note log scale for the number of observations.\\}.
+    \caption{Availability of ECVs listed in Table \ref{tab:ecvs} by time. Both the number of observations (red) and number of grid cells (black) with data are shown. Note log scale for the number of observations.\\}
     \label{fig:ecv_ts1}
 %\end{center}
 \end{figure}
@@ -103,6 +103,7 @@ Figure \ref{fig:nreports-map1} shows the total number of reports and total numbe
 Early in the record there were typically a few hundred 1x1 degree grid cells with data per month (see Figure \ref{fig:ecv_ts1}).
 These tended to be concentrated in the Atlantic Ocean and around the southern capes to the Indian and Pacific Oceans.
 With the opening of the Suez and then Panama canals the major shipping routes changed, with less shipping transiting the capes and a greater proportion transiting the Mediterranean and Caribbean seas to reach the Indian and Pacific oceans.
+
 Spatial coverage reached a peak between the 1960s and 1990s but declined sharply after 1990.
 The number of grid cells dropped from around 20,000 to around 10,000 - 12,000 by 2020 for the majority of parameters. 
 The contrast between the stable number of observations and decreasing spatial coverage (contrasting red and black lines in Figure \ref{fig:ecv_ts1}) is due to the change in reporting frequency from 6 hourly to 3 or 1 hourly and greater over the past 30 years, increasing the temporal sampling at the cost of spatial sampling.
@@ -223,7 +224,7 @@ The date and time of the observation is given by the \code{date\_time} column, w
 All data are returned in the UTC time zone.
 The location of the observation is given by the \code{latitude} and \code{longitude} columns in the WGS84 / EPSG4326 coordinate reference system. 
 The variable being reported / observed is given by the \code{observed\_variable} column, the units by the \code{units} column and the observed value by the \code{observation\_value} column. 
-The remaining columns provide further contextual information for the observations, such platform type and station identifiers etc. 
+The remaining columns provide further contextual information for the observations, such as platform type and station identifiers etc. 
 %A number of the columns are enumerated using code tables, indicated by the text \code{(coded)} in the Kind column of Table \ref{tab:cdm_lite}.
 %These code tables are reproduced in tables \ref{tab:report_type} to \ref{tab:licence} but with only those values used in the marine data listed.
 

@@ -34,13 +34,13 @@ For example, some duplicates are missed due to one archive recording the latitud
 These decisions have been revisited as part of this service, with the available ICOADS source files (known as "total" files within the NCEI/ICOADS archives) reprocessed and the data flagged appropriately.
 This processing is described in Section \ref{processing}.
 The original source of the data is recorded in ICOADS with the data accessions indexed by "deck" (DCK) and "source" (SID) identifiers (\cite{Woodruff1987}, \cite{Freeman2017}). 
-A detailed summary of the data accessions is given in the marine inventory (C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2) (-TO BE UPDATED-) available from the CDS website.
+A detailed summary of the data accessions is given in the marine inventory (\inventoryref{}) available from the CDS website.
 
 \subsection{Selection of data for inclusion in Service}
 As part of the development of this service the input sources and decks contributing observations to ICOADS have been prioritised and reprocessed based on the volume of observations, spatial / temporal coverage and availability of ECVs.
 
 Release 1 focussed on the post World War II period (1951 - 2010) and included observations from drifting buoys (sea surface temperature and sea level pressure) and Voluntary Observing Ships (VOS) (air temperature, dew point temperature, wind speed and direction, sea level pressure and sea surface temperature).
-As part of the first release VOS observations were merged with instrumental metadata from WMO Publication Number 47 (e.g.\cite{Kent2007}) to provide information on observing heights, instrument types / observing methods and information on the vessels contributing the observations. 
+As part of the first release VOS observations were merged with instrumental metadata from WMO Publication Number 47 (e.g. \cite{Kent2007}) to provide information on observing heights, instrument types / observing methods and information on the vessels contributing the observations. 
 
 Release 2 sought to extend the record backwards to 1851, including all available ship observations prior to 1951.
 
@@ -55,7 +55,7 @@ Release 6, the most recent at the time, updated the record to the end of 2022 us
 Drifting buoy data from the ICOADS Release 3.0.2 are not included in this release.
 A consolidated drifting buoy data record based on additional data sources such as the C-RAID Drifting buoys (\cite{craid}) will be processed and included in future releases.
 
-The marine inventory (C3S2\_D311\_Lot1.2.3.1\_202208\_Marine\_Inventory\_v2, available from the CDS website) gives a detailed overview of the contents from each data source used in this release.
+The marine inventory (\inventoryref{}, available from the CDS website) gives a detailed overview of the contents from each data source used in this release.
 
 Figure \ref{fig:nreports-ts} shows the monthly number of reports available in the current release. 
 Only those passing the full quality control check are shown, in total 390,335,546 reports from 248 sources have been processed.
@@ -149,7 +149,7 @@ However, biases have been identified in the 19th Century and earlier data due to
     \label{fig:at-map}
 \end{figure}
 \FloatBarrier
-Another factor that could lead to biases are systematic changes in the height at which the observations are made. The average observation height on merchant ship has has changed substantially over the period, ranging from \sim 4~-~5~m in the late 1800s, increasing to \sim 30~m in the late 2000s (Figure~\ref{fig:slp_heights}, \cite{Kent2007}, \cite{ Kent2013NMAT}). 
+Another factor that could lead to biases are systematic changes in the height at which the observations are made. The average observation height on merchant ships has has changed substantially over the period, ranging from \sim 4~-~5~m in the late 1800s, increasing to \sim 30~m in the late 2000s (Figure~\ref{fig:slp_heights}, \cite{Kent2007}, \cite{ Kent2013NMAT}). 
 Adjustments to a fixed reference height are required to avoid inhomogeneities in the record and leading to underestimation of trends in the data. 
 Adjustments are typically made based on Monin-Obukhov similarity theory and the approximation of a constant flux layer near the surface (e.g. \cite{Businger1971}). 
 Observing heights are included with the observations where known but adjustments have not been made as part of this service.
@@ -165,7 +165,7 @@ Observing heights are included with the observations where known but adjustments
 \FloatBarrier
 \subsubsection{Sea surface temperature}
 Figure \ref{fig:sst-map} shows climatological values of the mean sea surface temperature over the period \datatimerange{} (left) and the number of months with at least 1 observation on a 1x1 grid (right).
-The clustering over the major shipping routes is clearly visible but with better sampling than before away from the shipping lanes due to the sampling by drifting buoys.
+The clustering over the major shipping routes is clearly visible but with better sampling than for air temperature and humidity away from the shipping lanes due to the sampling by drifting buoys.
 Sea surface temperature observations have been historically made using a wide variety of methods, ranging from wooden, canvas and rubber buckets to infrared radiometers. 
 The most common methods are the bucket based and engine intake methods, both of which suffer from biases (\cite{Kent2017}). 
 Due to evaporative and conductive cooling the water samples in the buckets can be biased low compared to the true sea surface temperature. 
