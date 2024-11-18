@@ -1,24 +1,2 @@
 #Python 3.9.18
-matplotlib
-numpy
 pandas
-requests
-dask
-datashader
-xarray
-pyreadr
-unidecode
-prompt_toolkit
-holoviews
-bokeh
-geoviews
-panel
-jupyter
-pscript
-fpdf
-weasyprint
-jinja2
-pyarrow
-msgpack
-fastparquet
-importlib-metadata

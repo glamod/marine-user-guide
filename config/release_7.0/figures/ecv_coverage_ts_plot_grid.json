@@ -1,0 +1,11 @@
+{
+  "dir_data":"/ichec/work/glamod/data/marine/marine/marine-user-guide_202411/v9/level2/reports",
+  "dir_out":"/ichec/work/glamod/data/marine/marine/marine-user-guide_202411/v9/level2/reports",
+  "file_in_id" : "-reports_grid_ts-optimal",
+  "file_out":"ecv_coverage_ts_grid.png",
+  "start":2022,
+  "stop":2022
+  }
+
+
+

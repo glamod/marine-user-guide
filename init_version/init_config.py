@@ -32,6 +32,7 @@ functions:
 
 import sys
 import json
+import os
 
 def get_releases():
     """Gets from user release information
@@ -131,12 +132,12 @@ def main():
             print('Removing from config file excluded source-deck excluded from data release(s): {}'.format(sd))
             merged_dict['sid_dck'].pop(sd)
       
-    with open(out_path+'mug_config.json','w') as fO:
+    with open(os.path.join(out_path, 'mug_config.json'),'w') as fO:
         json.dump(merged_dict,fO,indent=4)
 
     #save list of all DCK-SID combinations
     keylist=list(merged_dict['sid_dck'].keys())
-    with open(out_path+'mug_list_full.txt', 'w') as fO:
+    with open(os.path.join(out_path, 'mug_list_full.txt'), 'w') as fO:
         for keylis in keylist:
             fO.write(keylis)
             fO.write('\n')

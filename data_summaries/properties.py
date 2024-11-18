@@ -30,14 +30,14 @@ DS_AGGREGATIONS = {'counts':ds.count,'max':ds.max,'min':ds.min, 'mean':ds.mean}
 
 # NC files properties
 # ------------------------------------------------------------------------------
-NC_ENCODINGS = {'latitude': {'dtype': 'int16', 'scale_factor': 0.01,
+NC_ENCODINGS = {'latitude': {'dtype': 'int', 'scale_factor': 0.01,
             '_FillValue': -99999},
-             'longitude': {'dtype': 'int16', 'scale_factor': 0.01,
+             'longitude': {'dtype': 'int', 'scale_factor': 0.01,
              '_FillValue': -99999},
-             'counts': {'dtype': 'int64','_FillValue': -99999},
-             'max': {'dtype': 'int32', 'scale_factor': 0.01,
+             'counts': {'dtype': 'int','_FillValue': -99999},
+             'max': {'dtype': 'int', 'scale_factor': 0.01,
               '_FillValue': -99999},
-             'min': {'dtype': 'int32', 'scale_factor': 0.01,
+             'min': {'dtype': 'int', 'scale_factor': 0.01,
              '_FillValue': -99999},
-             'mean': {'dtype': 'int32', 'scale_factor': 0.01,
+             'mean': {'dtype': 'int', 'scale_factor': 0.01,
              '_FillValue': -99999}}

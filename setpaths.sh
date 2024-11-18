@@ -1,7 +1,7 @@
 export data_directory=/ichec/work/glamod/data/marine/marine
 export code_directory=/ichec/work/glamod/glamod_marine/marine-user-guide
 
-export mug_data_directory=$data_directory/marine-user-guide
+export mug_data_directory=$data_directory/marine-user-guide_202411
 export mug_code_directory=$code_directory
 export mug_config_directory=$mug_code_directory/config
 
