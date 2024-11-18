@@ -100,8 +100,7 @@ def main():
     nreports_ships_list = []
     mean_list = []
     start = datetime.datetime(config['start'],1,1)
-    #stop = datetime.datetime(config['stop'],12,31)
-    stop = datetime.datetime(config['stop'],1,31)
+    stop = datetime.datetime(config['stop'],12,31)
     for dt in rrule.rrule(rrule.MONTHLY, dtstart=start, until=stop):
         date_file = dt.strftime('%Y-%m')
         parq_path = os.path.join(config['dir_out'],'-'.join([date_file,table,'.data.parq.tmp', str(random.randint(0, 1000000))]))
