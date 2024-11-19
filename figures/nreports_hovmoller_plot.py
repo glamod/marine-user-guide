@@ -105,7 +105,7 @@ if __name__ == "__main__":
                 #this breaks if used with too short (~ <=1 year) ts.
                 i = dataset[season].sel(time=is_season_center(dataset['time.month'],season))
                 j = i.where(dataset[season]>0)
-                j["time"] = range(len(j["time"]))
+                #j["time"] = range(len(j["time"]))
                 j.plot.pcolormesh(
                         x="time",
                         y="latitude",
