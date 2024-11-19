@@ -72,7 +72,6 @@ if __name__ == "__main__":
         header_n_cells = header_n_cells.rolling(time=DTMEAN, center=True).mean()
         header_n_reports = header_n_reports.rolling(time=DTMEAN, center=True).mean()
         
-    
     f, ax = plt.subplots(3, 2, figsize=(10,10),sharex=True,sharey=True)# 
     ax2 = ax.copy()
     for i,table in enumerate(observation_tables):
@@ -89,13 +88,12 @@ if __name__ == "__main__":
             logging.info('...filtering time series')
             n_cells = n_cells.rolling(time=DTMEAN, center=True).mean()
             n_reports = n_reports.rolling(time=DTMEAN, center=True).mean()
-           
         logging.info('...plotting time series')
-        header_n_reports.plot(ax=ax[r,c],color=n_reports_color,zorder = 1 ,label='#reports',linewidth=5,alpha=0.15)
-        n_reports.plot(ax=ax[r,c],color=n_reports_color,zorder = 3 ,label='#obs parameter')
+        header_n_reports.plot(ax=ax[r,c],color=n_reports_color,zorder = 1 ,label='#reports',linewidth=5,alpha=0.15, marker="o")
+        n_reports.plot(ax=ax[r,c],color=n_reports_color,zorder = 3 ,label='#obs parameter', marker="o")
         ax2[r,c] = ax[r,c].twinx()
-        header_n_cells.plot(ax=ax2[r,c],color=n_cells_color,linewidth=5,alpha=0.15,zorder = 2,label='#1x1 cells reports')
-        n_cells.plot(ax=ax2[r,c],color=n_cells_color,zorder = 4, label='#1x1 cells parameter')
+        header_n_cells.plot(ax=ax2[r,c],color=n_cells_color,linewidth=5,alpha=0.15,zorder = 2,label='#1x1 cells reports', marker="o")
+        n_cells.plot(ax=ax2[r,c],color=n_cells_color,zorder = 4, label='#1x1 cells parameter', marker="o")
         
         ax2[r,c].set_ylabel('#1x1 cells', color=n_cells_color)
         ax2[r,c].tick_params(axis='y', colors=n_cells_color)
