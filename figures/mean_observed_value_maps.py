@@ -248,7 +248,6 @@ if __name__ == "__main__":
     min_obs = config.get('min_obs')
 
     tables = list(config.get('tables').keys())
-    tables = ["observations-sst"]
     for tablei in tables:
         logging.info('Figure: {}'.format(tablei))
         dataset_path = os.path.join(dir_data,config['tables'][tablei]['nc_file'])

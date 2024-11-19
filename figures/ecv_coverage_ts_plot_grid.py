@@ -63,7 +63,6 @@ if __name__ == "__main__":
         
     observation_tables = ['observations-at','observations-sst','observations-dpt',
                           'observations-slp','observations-ws','observations-wd']
-    observation_tables = ['observations-sst']
     table = 'header'
     file_pattern = table + file_in_id + '.nc'
     hdr_dataset = xr.open_dataset(os.path.join(dir_data,file_pattern))
