@@ -50,8 +50,8 @@ if __name__ == "__main__":
     f, ax = plt.subplots(1, 1,figsize=figsize)
     ax.stackplot(data.index,100*data['0']/data['nreports'],
         100*data['1']/data['nreports'],
-        #100*data['4']/data['nreports'],
-        #100*data['2']/data['nreports'],
+        100*data['4']/data['nreports'],
+        100*data['2']/data['nreports'],
         100*data['3']/data['nreports'],
         labels = ['unique','best','not checked','duplicate','worst'], colors=['Grey','DarkCyan','SeaShell','Orange','Red'],alpha = 0.3,edgecolor=['Grey']*5,linewidth=.3)
     #ax.plot(data['nreports'].rolling(12, center=True).mean(),label='__nolegend__',linewidth = 1,linestyle = ':',color = 'Black',alpha=0.7)

@@ -103,9 +103,21 @@ if __name__ == "__main__":
             logging.info('Season.sel.where: {}'.format(dataset[season].sel(time=is_season_center(dataset['time.month'],season)).where(dataset[season]>0)))
             if any(is_season_center(dataset['time.month'],season)):
                 #this breaks if used with too short (~ <=1 year) ts.
-                dataset[season].sel(time=is_season_center(dataset['time.month'],season)).where(dataset[season]>0).plot.pcolormesh(x = 'time', y = 'latitude',vmin=min_counts,
-                       vmax=max_counts_sea, cmap=colorbar,norm = normalization_f_sea,add_colorbar=True,
-                       extend='both',ax=axes[c,r],cbar_kwargs={'label':cbar_label})
+                i = dataset[season].sel(time=is_season_center(dataset['time.month'],season))
+                j = i.where(dataset[season]>0)
+                #j["time"] = range(len(j["time"]))
+                j.plot.pcolormesh(
+                        x="time",
+                        y="latitude",
+                        vmin=min_counts,
+                        vmax=max_counts_sea,
+                        cmap=colorbar,
+                        norm=normalization_f_sea,
+                        add_colorbar=True,
+                        extend="both",
+                        ax=axes[c,r],
+                        cbar_kwargs={"label": cbar_label},
+                )
             axes[c,r].set_title(season)
         f.tight_layout(rect=[0, 0.03, 1, 0.95])
         fig_path = os.path.join(dir_out,table + '-' + file_out_id_sea)
