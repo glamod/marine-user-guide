@@ -82,13 +82,13 @@ with open(sidck_file, 'r') as sidck_fh:
             logging.info(repr(sid_dck))
             if not os.path.isdir(log_diri):
                  sys.exit('Log directory not found at: {}'.format(log_diri))
-            fn.writelines('python3 {0}/ecv_reports_ts_plot_grid_sd.py {1} {2}/ecv_reports_ts_plot_grid_sd-all.json > {3}/ecv_reports_ts_plot_grid_sd-all.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
-            fn.writelines('python3 {0}/ecv_reports_ts_plot_grid_sd.py {1} {2}/ecv_reports_ts_plot_grid_sd-optimal.json > {3}/ecv_reports_ts_plot_grid_sd-optimal.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
-            fn.writelines('python3 {0}/nreports_dup_ts_sd.py {1} {2}/nreports_dup_ts_sd.json > {3}/nreports_dup_ts_sd.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
-            fn.writelines('python3 {0}/nreports_qc_ts_sd.py {1} {2}/nreports_qc_ts_sd.json > {3}/nreports_qc_ts_sd.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
-            fn.writelines('python3 {0}/param_lat_bands_ts.py {1} all {2}/param_lat_bands_ts.json > {3}/param_lat_bands_all_ts.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
-            fn.writelines('python3 {0}/param_lat_bands_ts.py {1} optimal {2}/param_lat_bands_ts.json > {3}/param_lat_bands_optimal_ts.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
-            fn.writelines('python3 {0}/report_io_plot_sd.py {1} {2}/report_io_plot_sd.json > {3}/report_io_plot_sd.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
+            fn.writelines('python {0}/ecv_reports_ts_plot_grid_sd.py {1} {2}/ecv_reports_ts_plot_grid_sd-all.json > {3}/ecv_reports_ts_plot_grid_sd-all.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
+            fn.writelines('python {0}/ecv_reports_ts_plot_grid_sd.py {1} {2}/ecv_reports_ts_plot_grid_sd-optimal.json > {3}/ecv_reports_ts_plot_grid_sd-optimal.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
+            fn.writelines('python {0}/nreports_dup_ts_sd.py {1} {2}/nreports_dup_ts_sd.json > {3}/nreports_dup_ts_sd.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
+            fn.writelines('python {0}/nreports_qc_ts_sd.py {1} {2}/nreports_qc_ts_sd.json > {3}/nreports_qc_ts_sd.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
+            fn.writelines('python {0}/param_lat_bands_ts.py {1} all {2}/param_lat_bands_ts.json > {3}/param_lat_bands_all_ts.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
+            fn.writelines('python {0}/param_lat_bands_ts.py {1} optimal {2}/param_lat_bands_ts.json > {3}/param_lat_bands_optimal_ts.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
+            fn.writelines('python {0}/report_io_plot_sd.py {1} {2}/report_io_plot_sd.json > {3}/report_io_plot_sd.log 2>&1 \n'.format(plot_code_dir, sid_dck, mug_config_dir_fig, log_diri))
             
 with open(slurmfile,'w') as fh:
     fh.writelines('#!/bin/bash\n')

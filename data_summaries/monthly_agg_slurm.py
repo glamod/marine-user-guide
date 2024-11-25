@@ -116,7 +116,7 @@ with open(slurmfile,'w') as fh:
 
 logging.info('{}: launching taskfarm'.format(taskfile))
 process = "jid=$(sbatch {}) && echo $jid".format(slurmfile)
-jid = launch_process(process)
+#jid = launch_process(process)
 
 
 

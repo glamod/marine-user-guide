@@ -72,7 +72,6 @@ if __name__ == "__main__":
         header_n_cells = header_n_cells.rolling(time=DTMEAN, center=True).mean()
         header_n_reports = header_n_reports.rolling(time=DTMEAN, center=True).mean()
         
-    
     f, ax = plt.subplots(3, 2, figsize=(10,10),sharex=True,sharey=True)# 
     ax2 = ax.copy()
     for i,table in enumerate(observation_tables):
@@ -89,7 +88,6 @@ if __name__ == "__main__":
             logging.info('...filtering time series')
             n_cells = n_cells.rolling(time=DTMEAN, center=True).mean()
             n_reports = n_reports.rolling(time=DTMEAN, center=True).mean()
-           
         logging.info('...plotting time series')
         header_n_reports.plot(ax=ax[r,c],color=n_reports_color,zorder = 1 ,label='#reports',linewidth=5,alpha=0.15)
         n_reports.plot(ax=ax[r,c],color=n_reports_color,zorder = 3 ,label='#obs parameter')

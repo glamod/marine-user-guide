@@ -1,0 +1,13 @@
+{
+  "dir_data":"/ichec/work/glamod/data/marine/marine/marine-user-guide_202411/v9/level2/reports/",
+  "dir_out":"/ichec/work/glamod/data/marine/marine/marine-user-guide_202411/v9/level2/reports/",
+  "file_in_id" : "-reports_grid_ts-optimal",
+  "file_out_id_sea":"nreports_hovmoller_seasonal.png",
+  "file_out_id_mon":"nreports_hovmoller_monthly.png",
+  "start":1851,
+  "stop":2023,
+  "tables":["header","observations-at","observations-sst","observations-slp",
+                      "observations-dpt","observations-wd","observations-ws"],
+  "colorbar":"magma"
+  }
+
