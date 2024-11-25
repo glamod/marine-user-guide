@@ -5,7 +5,7 @@
 
 
 ### plotting environment
-* documentation for environment set up and plotting routines under ```./docs/build/latex/```
+* documentation for environment set up and plotting routines: https://marine-user-guide.readthedocs.io/
 
 * environment set up
 ```
@@ -13,9 +13,6 @@
 ./setpaths.sh
 ./init_version/
 ./env/
-./config/mug_config_v7.json
-./config/mug_list_v7.txt
-
 ```
 
 * scripts to generate plots
@@ -38,10 +35,3 @@
   - Tex files under ./mug_document_src and ./mug_document_src/sections folders.
   - One sentence per line
   - compile with lualatex
-
-* this file
-```
-README.md
-```
-
-
