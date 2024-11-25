@@ -83,4 +83,4 @@ htmlhelp_basename = "marine-user-guidedoc"
 # html_static_path = ['_static']
 
 # disable warnings
-warnings.filterwarnings("ignore"
+warnings.filterwarnings("ignore")
