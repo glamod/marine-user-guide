@@ -115,8 +115,6 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
     cmap = plt.get_cmap(colorpalette)
     subplot_ax.pcolormesh(lons,lats,z,transform = ccrs.PlateCarree(),
                           cmap = cmap, norm = normalization_f, 
-                          #vmin = cmin_value,
-                          #vmax = cmax_value,
     )
 
     try:

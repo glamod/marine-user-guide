@@ -104,23 +104,16 @@ def map_on_subplot(f,subplot_ax,z,lons,lats,colorpalette = 'jet',
     else:
         normalization_f = mpl.colors.Normalize(vmin = cmin_value,
                                              vmax = cmax_value)
-    print("min: ", cmin_value)
-    print("max: ", cmax_value)
+
     cmap = plt.get_cmap(colorpalette)
     subplot_ax.pcolormesh(lons,lats,z,transform = ccrs.PlateCarree(),
                           cmap = cmap, norm = normalization_f, 
-                          #vmin = cmin_value,vmax = cmax_value,
     )
 
     try:
         gl = subplot_ax.gridlines(crs=ccrs.PlateCarree(),color = 'k',
                                linestyle = ':', linewidth = map_properties['grid_width'],
                                   alpha=0.4, draw_labels=False)
-        #gl.bottom_labels = True
-        #gl.top_labels = False
-        #gl.right_labels = False
-        #gl.left_labels = True
-
     except:
         gl = subplot_ax.gridlines(crs=ccrs.PlateCarree(),color = 'k',
                               linestyle = ':', linewidth = map_properties['grid_width'],

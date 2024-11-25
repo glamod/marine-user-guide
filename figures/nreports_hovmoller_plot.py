@@ -90,39 +90,6 @@ if __name__ == "__main__":
             normalization_f_sea = LogNorm(vmin = min_counts,vmax = max_counts_sea)
             max_counts_mon = dataset['monthly'].max().data.tolist()
             normalization_f_mon = LogNorm(vmin = min_counts,vmax = max_counts_mon)
-       
-        # Do a grid with the seasonal Hovmoller
-        #f, axes = plt.subplots(nrows=2, ncols=2, figsize=figsize)
-        #for i, season in enumerate(['DJF','MAM','JJA','SON']):
-        #    logging.info('Season: {}'.format(season))
-        #    c = 0 if i%2 == 0 else 1
-        #    r = int(i/2)
-        #    logging.info('Season data: {}'.format(dataset[season]))
-        #    logging.info('isseasoncenter: {}'.format(is_season_center(dataset['time.month'],season)))
-        #    #logging.info('Season.sel: {}'.format(dataset[season].sel(time=is_season_center(dataset['time.month'],season))))
-        #    logging.info('Season.sel.where: {}'.format(dataset[season].sel(time=is_season_center(dataset['time.month'],season)).where(dataset[season]>0)))
-        #    if any(is_season_center(dataset['time.month'],season)):
-        #        #this breaks if used with too short (~ <=1 year) ts.
-        #        i = dataset[season].sel(time=is_season_center(dataset['time.month'],season))
-        #        j = i.where(dataset[season]>0)
-        #        #j["time"] = range(len(j["time"]))
-        #        j.plot.pcolormesh(
-        #                x="time",
-        #                y="latitude",
-        #                vmin=min_counts,
-        #                vmax=max_counts_sea,
-        #                cmap=colorbar,
-        #                norm=normalization_f_sea,
-        #                add_colorbar=True,
-        #                extend="both",
-        #                ax=axes[c,r],
-        #                cbar_kwargs={"label": cbar_label},
-        #        )
-        #    axes[c,r].set_title(season)
-        #f.tight_layout(rect=[0, 0.03, 1, 0.95])
-        #fig_path = os.path.join(dir_out,table + '-' + file_out_id_sea)
-        #plt.savefig(fig_path,bbox_inches='tight',dpi = 150)
-        #plt.close(f)
 
         # Do the monthly separatelly
         f, axes = plt.subplots(nrows=1, ncols=1, figsize=(7,2))
