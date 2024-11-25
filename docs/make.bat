@@ -5,10 +5,11 @@ pushd %~dp0
 REM Command file for Sphinx documentation
 
 if "%SPHINXBUILD%" == "" (
-	set SPHINXBUILD=sphinx-build
+	set SPHINXBUILD=sphin -msphinx
 )
 set SOURCEDIR=source
-set BUILDDIR=build
+set BUILDDIR=_build
+set SPHINXPROJ=marine-user-guide
 
 if "%1" == "" goto help
 
