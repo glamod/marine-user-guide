@@ -11,7 +11,7 @@ p_opt=$3
 mug_conf_dir_fig=${mug_config_directory}/${release}/figures
 script_dir=${mug_code_directory}/figures
 # $(readlink --canonicalize $mug_conf_dir_fig)
-log_dir=${mug_data_directory}/${version}/level2/log2
+log_dir=${mug_data_directory}/${version}/level2/log
 
 cd ${script_dir}
 
