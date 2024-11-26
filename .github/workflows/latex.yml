@@ -14,13 +14,13 @@ permissions:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-    run: cd mug_document_src
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
+          working_directory: mug_document_src
           root_file: main.tex
           latexmk_use_lualatex: true
       - name: Upload PDF file
