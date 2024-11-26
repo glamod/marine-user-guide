@@ -26,8 +26,7 @@
 
 * config files for data summaries and plotting
 ```
-./config/config_files/
-./config/config_files_sd/
+./config/config/
 ```
 
 * resources for the Marine User Guide document
