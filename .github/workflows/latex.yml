@@ -18,9 +18,9 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
       - name: Compile LaTeX document
+        run: cd mug_document_src
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: mug_document_src
           root_file: main.tex
           latexmk_use_lualatex: true
       - name: Upload PDF file
