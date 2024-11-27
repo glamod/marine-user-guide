@@ -29,7 +29,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git pull origin ${{ github.head_ref || github.ref_name }}
+          #git pull origin ${{ github.head_ref || github.ref_name }}
           git add mug_document_src/main.pdf
           git commit -m "Update current version of the Marine User Guide" || echo "No changes to commit"
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
