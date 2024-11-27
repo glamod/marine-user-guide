@@ -1,6 +1,8 @@
 # marine-user-guide
 - Repository to store documents and resources used to create the Marine User Guide.
 
+- See current version of the [Marine User Guide](https://github.com/glamod/marine-user-guide/blob/latex/mug_document_src/main.pdf)
+
 ## contents
 
 

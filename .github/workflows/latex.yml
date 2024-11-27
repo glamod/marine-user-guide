@@ -1,0 +1,28 @@
+name: Build LaTeX document
+on: 
+  push:
+    branches:
+      - "*"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          pre_compile: cd mug_document_src 
+          latexmk_use_lualatex: true
+      - name: Commit and push PDF
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: mug_document_src/main.pdf
