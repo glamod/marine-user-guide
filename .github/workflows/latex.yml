@@ -26,7 +26,7 @@ jobs:
           pre_compile: cd mug_document_src 
           latexmk_use_lualatex: true
       - name: Commit and push PDF
-        -uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v5
       #  run: |
       #    git config --global user.name "GitHub Actions"
       #    git config --global user.email "actions@github.com"
