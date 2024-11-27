@@ -26,10 +26,11 @@ jobs:
           pre_compile: cd mug_document_src 
           latexmk_use_lualatex: true
       - name: Commit and push PDF
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          #git pull origin ${{ github.head_ref || github.ref_name }}
-          git add mug_document_src/main.pdf
-          git commit -m "Update current version of the Marine User Guide" || echo "No changes to commit"
-          git push origin HEAD:${{ github.head_ref || github.ref_name }}
+        -uses: stefanzweifel/git-auto-commit-action@v5
+      #  run: |
+      #    git config --global user.name "GitHub Actions"
+      #    git config --global user.email "actions@github.com"
+      #    #git pull origin ${{ github.head_ref || github.ref_name }}
+      #    git add mug_document_src/main.pdf
+      #    git commit -m "Update current version of the Marine User Guide" || echo "No changes to commit"
+      #    git push origin HEAD:${{ github.head_ref || github.ref_name }}
