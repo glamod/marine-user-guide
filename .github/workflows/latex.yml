@@ -23,8 +23,15 @@ jobs:
           root_file: main.tex
           pre_compile: cd mug_document_src 
           latexmk_use_lualatex: true
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v4
-        with:
-          name: PDF
-          path: mug_document_src/main.pdf
+      - name: Commit and push PDF
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add mug_document_src/main.pdf
+          git commit -m "Update MUG PDF" || echo "No changes to commit"
+          git push
+      #- name: Upload PDF file
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: PDF
+      #    path: mug_document_src/main.pdf
