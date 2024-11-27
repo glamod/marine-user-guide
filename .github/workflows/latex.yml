@@ -24,3 +24,5 @@ jobs:
           latexmk_use_lualatex: true
       - name: Commit and push PDF
         uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: mug_document_src/main.pdf
