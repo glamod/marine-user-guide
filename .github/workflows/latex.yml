@@ -29,7 +29,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git add mug_document_src/main.pdf
           git commit -m "Update MUG PDF" || echo "No changes to commit"
-          git push
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
       #- name: Upload PDF file
       #  uses: actions/upload-artifact@v4
       #  with:
