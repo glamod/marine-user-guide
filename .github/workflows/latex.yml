@@ -20,7 +20,8 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-          extra_system_packages: verdana
+          extra_system_packages: Verdana
+          # extra_fonts: verdana
           pre_compile: cd mug_document_src
           latexmk_use_lualatex: true
       - name: Commit and push PDF
