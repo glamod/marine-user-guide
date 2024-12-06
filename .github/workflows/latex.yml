@@ -21,7 +21,7 @@ jobs:
         with:
           root_file: main.tex
           pre_compile: cd mug_document_src
-          extra_system_package: "verdana" 
+          extra_system_packages: "verdana" 
           latexmk_use_lualatex: true
       - name: Commit and push PDF
         uses: stefanzweifel/git-auto-commit-action@v5
