@@ -37,6 +37,12 @@
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 \usepackage[hyphenbreaks]{breakurl}
 
+%\usepackage{changes}
+%\definechangesauthor[name=Axel]{AA}
+%\definechangesauthor[name=Tina]{TL}
+%\definechangesauthor[name=Ludwig]{LL}
+%\definechangesauthor[name=<name>, color=<color>]{<id>}
+
 \setlength{\textfloatsep}{0.1cm}
 % ======================================
 % bibliography and style
@@ -47,7 +53,7 @@
 % todonotes packages allows annotation of
 % comments in the pdf, inline or in margin
 % ======================================
-\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage[colorinlistoftodos]{todonotes}
 % ======================================
 % C3S layout and style
 % ======================================
@@ -58,12 +64,35 @@
 \renewcommand\thesection{\arabic{section}}
 \renewcommand\thesubsection{\thesection.\arabic{subsection}}
 \newcommand{\code}[1]{\texttt{#1}} % cf attributes, variables etc
-\newcommand{\datatimerange}{{1851 - 2022}} % define data time range for figures etc.
-\newcommand{\inventoryref}{{C3S2\_D311\_Lot1.2.3.1.202308\_Updated Inventory for Marine datasets\_v3}}
+\newcommand{\datatimerange}{{1851 - 2023}} % define data time range for figures etc.
+\newcommand{\inventoryref}{{C3S2\_D311\_Lot1.2.3.1.2024\_Updated Inventory for Marine datasets\_v4}}
 
-% use Carlito as font-metric compatible replacement fallback on overleaf
+% set fonts to use
+% MS Calibri
+%\setmainfont{Calibri}
+%\setsansfont{Calibri}
+
+% use Carlito as font-metric compatible replacement fallback
 \setmainfont{Carlito}
 \setsansfont{Carlito}
+
+%Use local font folder as fallback, if Calibri is not installed on system
+%\setmainfont{Calibri}[
+%    Path=./CalibriFont/,
+%    Extension = .ttf,
+%    UprightFont=calibri,
+%    BoldFont=calibrib,
+%    ItalicFont=calibrii,
+%    BoldItalicFont=calibriz
+%    ]
+%\setsansfont{Calibri}[
+%    Path=./CalibriFont/,
+%    Extension = .ttf,
+%    UprightFont=calibri,
+%    BoldFont=calibrib,
+%    ItalicFont=calibrii,
+%    BoldItalicFont=calibriz
+%    ]
 
 % colours to use
 \definecolor{maroon}{RGB}{122,11,44}
@@ -96,7 +125,7 @@
 \headsep  0.5 cm
 \lhead{\textcolor{maroon}{Copernicus Climate Change Service}\vskip 0.5 cm}
 \rhead{\includegraphics{resources/c3s_logo_small.png} \vskip 0.3 cm}
-\lfoot{C3S2\_311\_Lot1\_NUIM\_2021/SC2–Eighth version Marine User Guide}
+\lfoot{C3S2\_311\_Lot1\_NUIM\_2021/SC2–Ninth version Marine User Guide}
 \cfoot{}
 \rfoot{Page \textbf{\thepage}  of \textbf{\pageref{LastPage}} }
 % ======================================
@@ -105,7 +134,7 @@
 % Set title etc
 % ======================================
 \title {Marine PUG}
-\author {David I. Berry \\ National Oceanography Centre, UK}
+\author {Axel Andersson, Deutscher Wetterdienst (Germany)}
 \date{\today}
 % ======================================
 % Page style

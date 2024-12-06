@@ -1,12 +1,12 @@
 \section{Data and metadata sources}\label{data_sources}
 \subsection{Observations}
-\subsubsection{The International Comprehensive Ocean-Atmosphere Data Set}
 % Background to marine met and coordination
 Weather observations have routinely been made at sea since at least the 1650s, with descriptive observations of the prevailing weather conditions and early instrumental measurements included in the general ships logbooks as part of the daily entries. 
 Following the Brussels Conference of 1853, and recognition of the importance of the weather observations to international trade and safe navigation, standardised meteorological logbooks and observing instructions were developed and made available to ships captains.
 In return for following the instructions and returning the completed logbooks the captains were provided with the latest sailing directions and weather charts, thereby collectively gaining benefit from the collecting and sharing of meteorological data.
 This international coordination, standardisation and data sharing has continued to the present day, currently overseen by the World Meteorological Organisation (WMO) and Global Ocean Observing System (GOOS) (e.g. see \cite{Smith2019}). Observations from other platforms, such as moored and drifting buoys, are similarly coordinated internationally.
 
+\subsubsection{The International Comprehensive Ocean-Atmosphere Data Set}
 % the global archives
 Through the international coordination and data sharing, national weather services independently developed global archives of marine meteorological and oceanographic observations.
 Many of these archives contained overlapping data. 
@@ -36,8 +36,31 @@ This processing is described in Section \ref{processing}.
 The original source of the data is recorded in ICOADS with the data accessions indexed by "deck" (DCK) and "source" (SID) identifiers (\cite{Woodruff1987}, \cite{Freeman2017}). 
 A detailed summary of the data accessions is given in the marine inventory (\inventoryref{}) available from the CDS website.
 
+\subsubsection{Copernicus Reprocessing of Argos and Iridium Drifters (C-RAID)}
+
+Drifting buoy data is available from different sources and collections based on data received from the GTS or directly from the service providers receiving the transmissions.
+As a part of the  Global Ocean Observing System (GOOS), NOAA's Global Drifter Program (GDP, \url{https://www.aoml.noaa.gov/phod/gdp/}) manages the collection, analysis, and distribution of the data acquired by drifters. 
+Data and metadata collected by drifting buoys are publically available in near real-time via the Global Data Assembly Centers (GDACs) operated by Coriolis-Ifremer (France) and MEDS (Canada), who apply an automated quality control (QC) to the data.
+In the longer term, scientifically quality controlled delayed mode data will be distributed on the GDACs.
+
+Such a delayed mode data set is prepared by the Copernicus Reprocessing of Argos and Iridium Drifters (C-RAID) project.
+The objectives of the C-RAID project are to gather, decode and process all the historical data measured by drifting buoys starting in 1979 and to make the data publicly available (\cite{craid202404}).
+For the current release we started to include the "C-RAID 202404 spring delivery" data set in GLAMOD.
+So far, only drifter data with Argos positioning have been included in the C-RAID database.
+Since 2016, most drifters are using data Iridium for data transmission and Global Navigation Satellite System (GNSS) for positioning, whereas most earlier platforms used Argos for both functions.
+The C-RAID April 2024 delivery contains quality controlled data of 16 965 drifters (around 16 475 years of data) deployed between 1979 and 2016.
+Current input data sources for C-RAID are mainly original Argos messages received by 
+Collecte Localisation Satellites (CLS, \url{https://www.cls.fr/}), but also data from the GDP.
+Metadata records were also provided by CLS and the GDP.
+Both groups of drifter data will be included in future releases C-RAID (\cite{craid202404activity}). The Addition of Iridium drifters will complement the data set and extend it beyond 2019.
+
+Overall, the CLS database appears to contain more Argos Ids than the GDP drifter Argos messages, resulting in an additional 2,000 buoy Ids in C-RAID compared to the GDP.
+The reprocessing applied in the C-RAID data set includes decoding of the original Argos messages, ingestion of meta data, recalculation of the positions using Kalman filtering and an advanced quality control with an land/beached test.
+In the current release of the GLAMOD data product we include C-RAID data from 2015 on. 
+
+
 \subsection{Selection of data for inclusion in Service}
-As part of the development of this service the input sources and decks contributing observations to ICOADS have been prioritised and reprocessed based on the volume of observations, spatial / temporal coverage and availability of ECVs.
+As part of the development of this service the input sources and decks contributing observations to ICOADS have been prioritised and reprocessed based on the volume of observations, spatial / temporal coverage and availability of ECVs. With the current release 7, drifting buoy data from the C-RAID project was added to the data set.
 
 Release 1 focussed on the post World War II period (1951 - 2010) and included observations from drifting buoys (sea surface temperature and sea level pressure) and Voluntary Observing Ships (VOS) (air temperature, dew point temperature, wind speed and direction, sea level pressure and sea surface temperature).
 As part of the first release VOS observations were merged with instrumental metadata from WMO Publication Number 47 (e.g. \cite{Kent2007}) to provide information on observing heights, instrument types / observing methods and information on the vessels contributing the observations. 
@@ -50,16 +73,19 @@ Release 4 updated the record to the end of 2020 using the observations from ICOA
 
 Release 5 updated the record to the end of 2021 using the observations from ICOADS Release 3.0.2, adding near realtime data updates including decoded BUFR messages from 2015 onwards.
 
-Release 6, the most recent at the time, updated the record to the end of 2022 using the observations from ICOADS Release 3.0.2, migrated the data processing to the Irish Center for High-end Computing and fixed a bug where the additional metadata was not added in the past. The metadata has been added to the previous releases as a post-processing step.
-
+Release 6 updated the record to the end of 2022 using the observations from ICOADS Release 3.0.2, migrated the data processing to the Irish Center for High-end Computing and fixed a bug where the additional metadata was not added in the past. The metadata has been added to the previous releases as a post-processing step.
 Drifting buoy data from the ICOADS Release 3.0.2 are not included in this release.
-A consolidated drifting buoy data record based on additional data sources such as the C-RAID Drifting buoys (\cite{craid}) will be processed and included in future releases.
+
+Release 7 updates the record to the end of 2023 using observations from ICOADS Release 3.0.2 and adding C-RAID drifting buoy data. Additionally, major improvements in the mapping routines, a new duplicate detection scheme and a wind QC routine were implemented.
+Data was reprocessed for the NRT period from 2015 onwards, benefiting from these improvements. A full reprocessing of the historical data holdings including ingestion of the entire C-RAID record is planned for the next release.
+
+
 
 The marine inventory (\inventoryref{}, available from the CDS website) gives a detailed overview of the contents from each data source used in this release.
 
 Figure \ref{fig:nreports-ts} shows the monthly number of reports available in the current release. 
-Only those passing the full quality control check are shown, in total 390,335,546 reports from 248 sources have been processed.
-Of these 282,367,426 are unique and pass the report quality control checks (see Section \ref{processing}), the remainder either fail the duplicate check or the aggregate report level QC check (see Section \ref{aggregate_qc}).
+Only those passing the full quality control check are shown, in total 417,766,236 reports from 249 sources have been processed.
+Of these 303,092,768 are unique and pass the report quality control checks (see Section \ref{processing}), the remainder either fail the duplicate check or the aggregate report level QC check (see Section \ref{aggregate_qc}).
 Figure \ref{fig:nreports-map} shows the spatial sampling by total number of reports and by number of months. 
 The total number of reports is dominated by the recent decades and the increase in buoy sampling (see Figure \ref{fig:nreports-hovmoller}). 
 The contribution to the ship based reports can be seen in the number of months available, with the ship tracks clearly visible.
@@ -79,7 +105,7 @@ Users requiring access to these data are recommended to access data directly fro
     \centering
     \includegraphics{resources/header-reports-map-optimal.png}
     \includegraphics{resources/header-months-map-optimal.png}
-    \caption{Spatio-temporal distribution of marine data holdings \datatimerange{}. Left: number of reports per grid cell; right: number of months with at least 1 report. Grid size is 1x1. Note logarithmic colour scale. Only reports passing the report level QC checks flag have been included.\\}
+    \caption{Spatio-temporal distribution of marine data holdings \datatimerange{}. Left: number of reports per grid cell; right: number of months with at least 1 report. Grid size is 1x1 degree lat/lon. Note logarithmic colour scale. Only reports passing the report level QC checks flag have been included.\\}
     \label{fig:nreports-map}
 \end{figure}
 
@@ -93,32 +119,36 @@ Users requiring access to these data are recommended to access data directly fro
 \FloatBarrier
 \subsection{Metadata}
 \subsubsection{WMO Publication Number 47 and other metadata}
-WMO Publication No. 47 (https://www.ocean-ops.org/share/SOT/PUB47/), the International List of Selected, Supplementary and Auxiliary Ships, contains metadata on the ships, and observing methods used by those ships contributing to the WMO Voluntary Observing Ships Programme. 
+Recent meta data for voluntary observing ships is stored and maintained in the OceansOps metadata database from where they are mirrored to the WMO OSCAR/Surface metadata database.
+An extract of the OceanOps data base that is compatible with the legacy WMO Publication No. 47 is published through \url{https://www.ocean-ops.org/share/SOT/PUB47/}. 
+WMO Publication No. 47 was the official international List of Selected, Supplementary and Auxiliary Ships, contains metadata on the ships, and observing methods used by those ships contributing to the WMO Voluntary Observing Ships Programme. 
 A summary of the information available in WMO Publication No. 47 can be found in \cite{Kent2007}. 
 This includes information on the ship dimensions and types, type(s) of instruments used, location of the sensors on board the ships and height of the sensors above the sea surface.  
 A subset of the metadata from WMO Publication No. 47 has been included in ICOADS since Release 2.5 based on a basic match between the reports in ICOADS and the WMO Publication 47 edition coincident with the observation (\cite{Kent2007}, \cite{Woodruff2011}).
 
-As part of C3S2 311 Lot 1 the WMO Publication 47 metadata has been reprocessed and selected fields, including ship names, types and instrument heights, have been included in this release. 
-During the reprocessing duplicate records have been combined, reducing the number of records from around 875 000 to 255 000 over the period 1956 - 2020. 
+As part of C3S2 311 Lot 1 the WMO Publication 47 metadata has been reprocessed, updated and contributed by NOC.
+Selected fields from the meta data, including ship names, types and instrument heights, have been included in this release. 
+During the reprocessing duplicate records have been combined, reducing the number of records from around 875~000 to 255~000 over the period 1956 - 2020. 
 Validity dates have been added, with the first record for a given ship extended by 1 year prior to its first appearance and the final record extended by 5 years. 
-This allows for a period of time between a ship being recruited and it first appearing in WMO Publication No. 47 and a period where a ship continues reporting but is no longer registered by the original recruiting country. 
+This allows for a period of time between a ship being recruited and it first appearing in WMO Publication No.~47 and a period where a ship continues reporting but is no longer registered by the original recruiting country. 
 Limited quality control has been applied to the data, with correction of typographical errors and standardisation of entries. 
 Similarly, heights have been corrected for known errors, such as incorrect packing of numeric data into alpha-numeric representation (e.g. i5 keyed instead of 15). 
-In addition to WMO Publication No. 47, metadata is present in the ICOADS supplemental records for a small number of observations, including information such as ship type, barometer height, routes etc. 
+In addition to WMO Publication No.~47, metadata is present in the ICOADS supplemental records for a small number of observations, including information such as ship type, barometer height, routes etc. 
 %Where documentation exists this information has been decoded and included in this service.
 Some information has been extracted from the ICOADS supplemental records and included in this service.
 
 Figure \ref{fig:slp_heights} shows the fraction of ship observations passing quality control for which the sea level pressure observing height is known (red line). The blue shaded area indicates the 25th - 75th percentiles of the observing heights and the blue dashed line the median height. 
-The earliest heights available are from the late 1870s for a period of \sim 15 years, with a significant proportion of the observations made during this period at a known height of around 5 m. 
-There is then a large gap in the metadata until the 1960s where WMO Publication No. 47 becomes available and call signs begin to be used in the observational record allowing the metadata to be associated with the observations. 
+The earliest heights available are from the late 1870s for a period of \sim 15~years, with a significant proportion of the observations made during this period at a known height of around 5\,m. 
+There is then a large gap in the metadata until the 1960s where WMO Publication No.~47 becomes available and call signs begin to be used in the observational record allowing the metadata to be associated with the observations. 
 However, the values before the 1970s should be used with caution, only a small fraction of the observations have been associated with the metadata, there is a large inter-quartile range and the median value is higher than expected.
 This is likely due to a number of uncorrected heights in feet above sea level rather than meters above sea level but further work is required to fully understand the metadata.
-Between 1970 and 2020 the median observation height increases from \sim 15 m to \sim 25 m.
+Between 1970 and 2020 the median observation height increases from \sim 15\,m to \sim 25\,m.
 
 The decrease in the proportion of observations with a known height from \sim 2014 is due to a decrease in the availability of call signs in the observational data due to call sign masking and use of generic call signs (such as SHIP) in response to security and commercial concerns of the participating Voluntary Observing Ships.
 Metadata for the air temperature, humidity and wind speed observations does not become available until the 1960s although the observing heights are expected to be similar to that for pressure. 
-From the 1970s onwards the change in heights (not shown) shows a similar trend to sea level pressure, with the temperature and humidity heights increasing from \sim 15~m to \sim 27~m. 
-The increase in wind speed height is greater (not shown), increasing from \sim 15~m in the early 1970s to almost 35~m by 2020.
+From the 1970s onwards the change in heights (not shown) shows a similar trend to sea level pressure, with the temperature and humidity heights increasing from \sim 15\,m to \sim 27\,m. 
+The increase in wind speed height is greater (not shown), increasing from \sim 15\,m in the early 1970s to almost 35\,m by 2020.
+
 
 \begin{figure}[h]
     \includegraphics[width=18cm]{resources/brmh.png}
@@ -126,11 +156,18 @@ The increase in wind speed height is greater (not shown), increasing from \sim 1
     \label{fig:slp_heights}
 \end{figure}
 
+
+\subsubsection{Drifting bouy metadata}
+Several sources exist for drifting buoy meta data. Recent metadata is accessible through OceanOps, OSCAR/Surface and the Global Drifter Program (GPD, \url{https://www.aoml.noaa.gov/phod/gdp/}).
+For historic and reprocessed data sets additional data sources may be needed.
+The C-RAID drifting buoy data set contains metadata that has been merged from data file provided by NOAA AOML GDP and CLS (\url{https://www.cls.fr/}) including decoding information and calibration coefficients for raw data (see \cite{craid202404activity} for details).
+Metadata included in the C-RAID data set has been merged into this data product, where applicable.
+
 \FloatBarrier
 \subsection{Observing methods, coverage and known issues}
 \subsubsection{Air temperature and humidity}
 Figure \ref{fig:at-map} shows climatological values of the mean air temperature and dew point temperature over the period \datatimerange{}. 
-Figure \ref{fig:at-nmonths-map} shows the number of months with at least 1 observation on a 1x1 grid. 
+Figure \ref{fig:at-nmonths-map} shows the number of months with at least 1 observation on a 1x1 degree lat/lon grid. 
 The clustering over the major shipping routes is clearly visible.
 The air temperature and humidity measurements made on board ships have traditionally been made using liquid (mercury or alcohol) in glass thermometers (wet and dry bulb) sheltered from direct solar radiation, rain and sea spray and housed either in a fixed shelter or in a hand-held instrument. 
 However, due to the need for the thermometers to be accessible the location of the thermometers is often not ideal, with the shelters sometimes located in poorly exposed locations and with inadequate ventilation.
@@ -149,7 +186,7 @@ However, biases have been identified in the 19th Century and earlier data due to
     \label{fig:at-map}
 \end{figure}
 \FloatBarrier
-Another factor that could lead to biases are systematic changes in the height at which the observations are made. The average observation height on merchant ships has has changed substantially over the period, ranging from \sim 4~-~5~m in the late 1800s, increasing to \sim 30~m in the late 2000s (Figure~\ref{fig:slp_heights}, \cite{Kent2007}, \cite{ Kent2013NMAT}). 
+Another factor that could lead to biases are systematic changes in the height at which the observations are made. The average observation height on merchant ships has has changed substantially over the period, ranging from \sim 4~-~5\,m in the late 1800s, increasing to \sim 30\,m in the late 2000s (Figure~\ref{fig:slp_heights}, \cite{Kent2007}, \cite{ Kent2013NMAT}). 
 Adjustments to a fixed reference height are required to avoid inhomogeneities in the record and leading to underestimation of trends in the data. 
 Adjustments are typically made based on Monin-Obukhov similarity theory and the approximation of a constant flux layer near the surface (e.g. \cite{Businger1971}). 
 Observing heights are included with the observations where known but adjustments have not been made as part of this service.
@@ -158,13 +195,13 @@ Observing heights are included with the observations where known but adjustments
     \centering
     \includegraphics{resources/observations-at-months-map-optimal.png}
     \includegraphics{resources/observations-dpt-months-map-optimal.png}
-    \caption{Number of months with at least one observation of air temperature (left) or humidity (right) over the period \datatimerange{} on a 1x1 grid. Only observations passing quality control have been included.\\}
+    \caption{Number of months with at least one observation of air temperature (left) or humidity (right) over the period \datatimerange{} on a 1x1 degree lat/lon grid. Only observations passing quality control have been included.\\}
     \label{fig:at-nmonths-map}
 \end{figure}
 
 \FloatBarrier
 \subsubsection{Sea surface temperature}
-Figure \ref{fig:sst-map} shows climatological values of the mean sea surface temperature over the period \datatimerange{} (left) and the number of months with at least 1 observation on a 1x1 grid (right).
+Figure \ref{fig:sst-map} shows climatological values of the mean sea surface temperature over the period \datatimerange{} (left) and the number of months with at least 1 observation on a 1x1 degree lat/lon grid (right).
 The clustering over the major shipping routes is clearly visible but with better sampling than for air temperature and humidity away from the shipping lanes due to the sampling by drifting buoys.
 Sea surface temperature observations have been historically made using a wide variety of methods, ranging from wooden, canvas and rubber buckets to infrared radiometers. 
 The most common methods are the bucket based and engine intake methods, both of which suffer from biases (\cite{Kent2017}). 
@@ -177,17 +214,17 @@ As with the other parameters, no adjustments have been made to the observations 
 \begin{figure}[h]
     \includegraphics{resources/observations-sst-mean-map-optimal.png}
     \includegraphics{resources/observations-sst-months-map-optimal.png}
-    \caption{Mean sea surface temperature (left) and number of months with at least one observation (right) over the period \datatimerange{}. All observations passing quality control have been averaged to give monthly mean values. These have then been averaged to give the long term mean.\\}
+    \caption{Mean sea surface temperature (left) and number of months with at least one observation (right) over the period \datatimerange{}. All observations passing quality control have been averaged to give monthly mean values. These have then been averaged to give the long term mean. \\}
     \label{fig:sst-map}
 \end{figure}
 
 \FloatBarrier
 \subsubsection{Wind speed and direction}
 Figure \ref{fig:wspd-map} shows climatological values of the mean wind speed and direction over the period \datatimerange{}. 
-Figure \ref{fig:wspd-nmonths-map} shows the number of months with at least 1 observation on a 1x1 grid. 
+Figure \ref{fig:wspd-nmonths-map} shows the number of months with at least 1 observation on a 1x1 degree lat/lon grid. 
 As with the other parameters, the clustering over the major shipping routes is clearly visible. 
 Wind speed observations made on board ships were historically made by estimating the wind force and recording the estimate using the Beaufort scale. 
-This provides estimates of the upper, lower and mid-point wind speeds for each value on the scale at a reference height of 10 m. 
+This provides estimates of the upper, lower and mid-point wind speeds for each value on the scale at a reference height of 10\,m. 
 When Beaufort scale wind estimates have been converted to a speed the mid-point has typically been used. 
 More recently, the visually estimated wind speeds have been estimated as a speed (e.g. knots or m/s) using the Beaufort scale as a guide. 
 
@@ -208,14 +245,14 @@ Again, no adjustments have been made as part of this service.
     \centering
     \includegraphics{resources/observations-ws-months-map-optimal.png}
     \includegraphics{resources/observations-wd-months-map-optimal.png}
-    \caption{Number of months with at least one observation of wind speed (left) or wind direction (right) over the period \datatimerange{} on a 1x1 grid. Only observations passing quality control have been included.\\}
+    \caption{Number of months with at least one observation of wind speed (left) or wind direction (right) over the period \datatimerange{} on a 1x1 degree lat/lon grid. Only observations passing quality control have been included.\\}
     \label{fig:wspd-nmonths-map}
 \end{figure}
 
 \FloatBarrier
 \subsubsection{Sea level pressure}
 
-Figure \ref{fig:slp-map} shows climatological values of the mean sea level pressure over the period \datatimerange{} (left) and the number of months with at least 1 observation on a 1x1 grid (right).
+Figure \ref{fig:slp-map} shows climatological values of the mean sea level pressure over the period \datatimerange{} (left) and the number of months with at least 1 observation on a 1x1 degree lat/lon grid (right).
 The clustering over the major shipping routes is clearly visible and, as with the sea surface temperature, better sampling away from the shipping lanes due to the sampling by drifting buoys can be seen.
 
 Early pressure observations were typically made using mercury barometers, with a transition to marine aneroid barometers in the mid 20th century and to electronic instruments more recently. 
@@ -223,8 +260,6 @@ The different sensors each have corrections that need to be applied but these ar
 The mercury and aneroid barometers require correction for temperature and height above sea level, with an additional adjustment for gravity required for the mercury barometers. 
 These corrections are believed to have been applied in the ICOADS data.
 When looking at long term means / climatological values the observations also need to be corrected for diurnal and semi-diurnal oscillations (e.g. Ansell et al. 2006). These additional adjustments have not been applied as part of this service.
-
-
 
 \begin{figure}[h]
     \includegraphics{resources/observations-slp-mean-map-optimal.png}

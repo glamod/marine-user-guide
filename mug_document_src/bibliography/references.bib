@@ -4283,15 +4283,14 @@ Url = {https://doi.org/10.17882/57247},
 Year = {2022}
 }
 
-@misc{craid,
-title = "C-RAID improve the access to historical drifter data: Copernicus Reprocessing of Argos and Iridium Drifters (C-RAID)",
-type = "Dataset",
-url = "https://doi.org/10.17882/77184",
-doi = "10.17882/77184",
-author = "Zunino Rodriguez, Patricia",
-year = "2023",
-editor = "SEANOE"
-}
+@techreport{craid202404activity,title = "C-RAID spring 2024 delivery – activity report",type = "Report",url = "https://doi.org/10.13155/92124",doi = "10.13155/92124",author = "Rannou, Jean Philippe AND Hamon, Mathieu AND Zunino Rodriguez, Patricia",year = "2024",editor = "Ifremer",abstract = "This document is the C-RAID project activity report in automn 2022."}
+
+@misc{craid202404,title = "C-RAID improve the access to historical drifter data: Copernicus Reprocessing of Argos and Iridium Drifters (C-RAID)",type = "Dataset",url = "https://doi.org/10.17882/77184",doi = "10.17882/77184",author = "Zunino Rodriguez, Patricia AND Rannou, Jean Philippe AND Poli, Paul AND Blanc, Frédérique AND Carval, Thierry AND Billon, Christophe AND Hamon, Mathieu",year = "2024",editor = "SEANOE",abstract = "C-RAID project is a global reprocessing of drifting buoys data and metadata. The C-RAID dataset contains the metadata of 20 000 drifting buoys, deployed between 1979 and 2018. The data of 16 965 drifting buoys have been fully reprocessed and scientifically checked (delayed mode including comparison with ERA5 reanalysis). Context: The WMO DBCP Drifting Buoys GDAC (Ifremer, Meteo-France and Ocean-Canada ) is dedicated to improved quality control and delivery of drifting buoy of “climate quality” data for the Marine Climate Data System (MCDS). Goal: clean-up an entire data archive for the past buoys deployed & reprocess the argos data & improve argos position quality (reprocessed with Kalman filter) Lead: The C-RAID project is funded by Copernicus through a contract with the European Environment Agency. Contract # EEA/IDM/15/026/LOT1 (For Services supporting the European Environment Agency’s (EEA) implementation of cross-cutting activities for coordination of the in-situ component of the Copernicus Programme Services). Stakeholders: DB-GDAC, Météo-France, EUMETNET (with its E-SURFMAR program), but also builds on NOAA AOML and JCOMMOPS expertise Challenge: reprocess/recover 22,000 years of data and make them accessible For whom? Copernicus Climate Change Service, Copernicus Marine Environment Monitoring Service, iQuam, ICOADS, GHRSST, ISPD, and ICDC. C-RAID deliverables An improved drifting buoy data record for years 1979-2018 FAIR interfaces to drifting buoys data in Ifremer GDAC: Web data discovery for human users API data discovery/subsetting/download services (machine-to-machine data access) What do we mean by “Improved drifting buoy data record”: Missing datasets and parts of datasets recovered (data rescue) Homogeneous and rich metadata and data format Improved Argos locations with Kalman filter algorithm Homogeneous QC and assessment on marine and atmospheric data"}
+
+@techreport{craidQCManual,title = "C-RAID drifters Quality Control Manual",type = "Report",url = "https://doi.org/10.13155/81639",doi = "10.13155/81639",author = "Zunino Rodriguez, Patricia AND Rannou, Jean Philippe AND Hamon, Mathieu AND Carval, Thierry",year = "2022",editor = "Ifremer",abstract = "This document is the quality control manual for drifter data processed in the framework of the C-RAID project. It is derived from “Argo Quality Control Manual for CTD and Trajectory Data” (http://dx.doi.org/10.13155/33951). Specific information about the drifting buoy was also recovered from the “Guide to Drifting Data Buoys”, UNESCO, 1988 (https://www.oceandocs.org/handle/1834/2734). The document describes two levels of quality control: - Real Time Quality Control (RTQC) tests that perform a set of agreed automatic checks; - Delayed-Mode Quality Control (DMQC) tests and procedures to be performed by an operator."}
+
+
+@techreport{craidNetCDFManual,title = "C-RAID drifters NetCDF format reference manual - NetCDF conventions and Reference Tables",type = "Report",url = "https://doi.org/10.13155/81638",doi = "10.13155/81638",author = "Rannou, Jean Philippe AND Zunino Rodriguez, Patricia AND Hamon, Mathieu",year = "2023",editor = "Ifremer",abstract = "This document specifies the NetCDF file format used to store the drifter data and meta-data processed in the framework of the C-RAID project."}
 
 % add references to C3S2 docs
 @techreport{GLAMOD2022,
@@ -4299,3 +4298,64 @@ Title = {{C3S2\_D311a\_Lot2.3.4.1\_201708\_Technical service document\_v1}},
 Comment = {available upon request from Service Manager, Corinne.voces@mu.ie.}
 }
 
+@software{jonathan_de_bruin_2023_8169000,
+	author       = {Jonathan de Bruin and
+	Jillian Anderson and
+	Joel Becker and
+	Harrison Wong and
+	tylerbinski and
+	Tomasz Waleń and
+	Dan Elias and
+	Johannes Weytjens and
+	David GG and
+	Tobias Knuth and
+	Harald Varner and
+	Lucia Baldassini and
+	Martinho Hoffman and
+	Mayer Antoine and
+	Rosina Norton and
+	Tani Teigman and
+	Victor Deplasse and
+	andyjessen},
+	title        = {J535D165/recordlinkage: v0.16},
+	month        = jul,
+	year         = 2023,
+	publisher    = {Zenodo},
+	version      = {v0.16},
+	doi          = {10.5281/zenodo.8169000},
+	url          = {https://doi.org/10.5281/zenodo.8169000}
+}
+
+@software{lierhammer_2024_14135493,
+	author       = {Lierhammer, Ludwig and
+	Siddons, Joseph and
+	Andersson, Axel and
+	Leiding, Tina and
+	Cornes, Richard and
+	Kent, Elizabeth},
+	title        = {{cdm\_reader\_mapper: Common Data Model reader and 
+	mapper toolbox}},
+	month        = nov,
+	year         = 2024,
+	publisher    = {Zenodo},
+	version      = {v1.0.2},
+	doi          = {10.5281/zenodo.14135493},
+	url          = {https://doi.org/10.5281/zenodo.14135493}
+}
+
+@software{lierhammer_2024_14215566,
+	author       = {Lierhammer, Ludwig and
+	Andersson, Axel and
+	Leiding, Tina and
+	Cornes, Richard and
+	Kent, Elizabeth and
+	Siddons, Joseph},
+	title        = {{glamod-marine-processing: Toolbox for GLAMOD 
+	marine processing}},
+	month        = nov,
+	year         = 2024,
+	publisher    = {Zenodo},
+	version      = {v7.1.0},
+	doi          = {10.5281/zenodo.14215566},
+	url          = {https://doi.org/10.5281/zenodo.14215566}
+}

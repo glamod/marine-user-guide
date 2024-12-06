@@ -3,30 +3,36 @@
 
 The C3S2 311 Lot 1 - Global Land and Marine Observations Database (GLAMOD) service provides access to in situ surface observations from various climate archives in a common data model.
 This document describes the marine component of the service, providing access to surface marine meteorological observations.
-This component is currently based on Release 3.0 and Release 3.0.2 of the International Comprehensive Ocean-Atmosphere Data Set (ICOADS, \cite{Freeman2017,Liu2022}) and has been enhanced by: 
+This component is currently based on Release 3.0 and Release 3.0.2 of the International Comprehensive Ocean-Atmosphere Data Set (ICOADS, \cite{Freeman2017,Liu2022}).
+Starting with release 7, we include reprocessed drifting buoy data provided by the C-RAID project (\cite{craid202404}) as an additional input data source.
+
+The input data has been enhanced by: 
 \begin{itemize}
 \item advanced quality control tests; 
 \item enhanced duplicate detection and flagging; 
 \item association of instrumental metadata with the observations. 
 \end{itemize}
-Additional sources, such as from data recovery and digitisation, will be included in future releases.
 
 The observations in ICOADS come from a range of observing platforms, before 1980 these are primarily ships but with an increasing number of measurements made by sensors installed on moored and drifting buoys after this date. 
 The ship observations are clustered over the shipping routes prevalent at the time of observation. 
 Coverage by drifting buoys tends to be more dispersed but with lower sampling over regions of ocean upwelling. 
 Moored buoy data, with the exception of the tropical arrays, tend to be more coastal and concentrated around North America and Europe.
 
-Each meteorological report in ICOADS contains observations of multiple essential climate variables (ECVs, e.g. \cite{Bojinski2014}) made at the same time and location, for example coincident measurements of the air temperature, humidity, wind speed and direction, sea surface temperature and sea level pressure.
+Each meteorological report in ICOADS contains observations of multiple Essential Climate Variables (ECVs, e.g. \cite{Bojinski2014}) made at the same time and location, for example coincident measurements of the air temperature, humidity, wind speed and direction, sea surface temperature and sea level pressure.
 From the mid 2000s the record is dominated by reports from drifting buoys but these only report a small subset of the ECVs included in this service, typically only sea level pressure or sea surface temperature.
-From 2015 on, this release does not contain drifting buoy data from the ICOADS Release 3.0.2.
-A consolidated drifting buoy data record based on additional data sources such as the C-RAID projects drifting buoy dataset (\cite{craid}) will be included in future releases.
+From 2015 onwards drifting buoy data from C-RAID complements the near real-time ship data from ICOADS 3.0.2. The C-RAID dataset contains fully reprocessed and scientifically checked data and metadata of about 20,000 drifting buoys since 1979.
+Inclusion of the full C-RAID data set into this service is planned for future releases.
 
 The reporting frequency ranges from hourly or more frequent in the recent period to daily observations prior to \sim 1860. 
-In the intervening period observing frequency ranged from three times per day based on the watches on board ships to 3-hourly or 6-hourly observations.
+In the intervening period observing frequency ranged from three times per day based on the watches on board ships to 3-hourly or 6-hourly observations. 
 
 Several sources of metadata have been used, for the period after \sim 1982 metadata from WMO-No. 47, the "List of Selected, Supplementary and Auxilary Ships" (e.g. \cite{Kent2007}) has been merged with the ship observations.
 Some ships observations prior to 1982 have also been merged with the WMO-No. 47 metadata but this is hampered by a lack of ship callsigns within the data before this date.
 Additional metadata has been extracted from the ICOADS Supplemental Data (see \cite{Freeman2017}) and documentation available on the ICOADS website.
+
+The C-RAID drifting buoy data set contains metadata that has been merged from sources provided by the NOAA AOML Global Drifter Program and the satellite service provider CLS (Collecte Localisation Satellites) (see \cite{craid202404activity} for details). 
+Metadata included in the C-RAID data set has been merged into this data product, where applicable.
+
 
 Apart from the summary information presented in this document, a detailed overview of the data contents for each of the input sources is available in the Marine Data Inventory \\
 (\inventoryref{}).
@@ -88,7 +94,7 @@ Following the Brussels conference there is a large increase in number of observa
 Dew point observations only reach 10,000 per month on a routine basis around the time of the First World War.
 For all parameters, the number of observations increases over time to around 100,000 per month in the 1960s and remains at this level until the 1990s.
 From the mid 1990's there is a large increase in the number of sea level pressure and sea surface temperature observations from drifting buoys.
-From 2015 on, drifting buoys are not included in this release, resulting in a drop in the number of sea surface temperature and sea level observations.
+The C-RAID drifting buoy data record currently ends in early 2019, resulting in a drop in the number of sea surface temperature and sea level pressure observations.
 
 \begin{figure}[h]
 \centering
@@ -98,6 +104,7 @@ From 2015 on, drifting buoys are not included in this release, resulting in a dr
     \label{fig:ecv_ts1}
 %\end{center}
 \end{figure}
+
 
 Figure \ref{fig:nreports-map1} shows the total number of reports and total number of months per 1x1 degree grid cell, however over the period \datatimerange{} there have been major changes to the spatial sampling.
 Early in the record there were typically a few hundred 1x1 degree grid cells with data per month (see Figure \ref{fig:ecv_ts1}).
@@ -115,107 +122,24 @@ Sea level pressure and sea surface temperature experience a much smaller marked 
 \begin{figure}[h]
 \includegraphics{resources/header-reports-map-optimal.png}
 \includegraphics{resources/header-months-map-optimal.png}
-\caption{Spatio-temporal distribution of marine data holdings \datatimerange{}. Left: number of reports per grid cell; right: number of months with at least 1 report. Grid size is 1x1 degrees lat/lon. Note logarithmic colour scale. Only reports passing the report level QC checks flag have been included.\\}
+\caption{Spatio-temporal distribution of marine data holdings \datatimerange{}. Left: number of reports per grid cell; right: number of months with at least 1 report. Grid size is 1x1 degrees lat/lon. Note logarithmic colour scale. Only reports passing the report level QC checks flag have been included. \\}
 \label{fig:nreports-map1}
 \end{figure}
-
+\FloatBarrier
 \newpage
+
 \subsection{Data access}
-The data can be downloaded and accessed via the Copernicus Climate Change Service (C3S) Climate Data Store (CDS):
+The GLAMOD dataset can be downloaded and accessed via the Copernicus Climate Change Service (C3S) Climate Data Store (CDS):
 \begin{center}
-\sloppy\url{https://cds.climate.copernicus.eu/cdsapp#!/dataset/insitu-observations-surface-marine?tab=form}.
+\sloppy\url{https://cds.climate.copernicus.eu/datasets/insitu-observations-surface-marine?tab=overview}.
  \end{center}
-The page has 3 tabs, the Overview tab presents an overview of the marine data and provides details on the data description, main and related variables available, contact email and links to licence/data policy statements. 
-The Documentation tab provides links to PDF’s of the Marine Product User Guide, Marine data inventories, Common Data Model specifications and a link to the Data Deposit Server webpage. The Download Data tab provides 6 sections that need to be completed in order to download data. The first selects one or more variables (Figure \ref{fig:cds_variable}) from the available ECVs (Table \ref{tab:ecvs}). The second selects the level of quality control to apply, selecting either those that have passed all stages of quality control or all observations (Figure \ref{fig:cds_qc}). The next three select the time period  by selecting the year (Figure \ref{fig:cds_year}), month (Figure \ref{fig:cds_month}) and day (Figure \ref{fig:cds_day}). The final selection selects the region, specifying either all data (global) or selecting observations within a bounding box (Figure \ref{fig:cds_area}).
+Through the service you have the possibility to subset the data e.g. by variable, time and domain.
+Another possibility to download and process the data is using the CDS Python API:
+ \url{https://cds.climate.copernicus.eu/how-to-api}) 
 
-Data can additionally be downloaded using the CDS Python API. Selecting the \texttt{Show API request} button reveals the API commands to use for the given selection. Example code can be found in Figure~\ref{fig:cds_api}.
-More information can be found at \url{https://cds.climate.copernicus.eu/api-how-to}
-
-\FloatBarrier
-\begin{figure}[h]
-\centering
-%\begin{center}
-\includegraphics[width=0.75\textwidth]{resources/cds_variable_select.png}
-\caption{Selection box for variable selection on the Global Land And Marine Observations Database download page on the CDS. It should be noted that "water temperature" is used in the data model to include river, lake and sea surface temperature.\\}
-\label{fig:cds_variable}
-%\end{center}
-\end{figure}
+A detailed description on data access and how to download the data is given in section \ref{sec:data_access} of this document.
 
 
-\begin{figure}
-\centering
-%\begin{center}
-\includegraphics[width=0.75\textwidth]{resources/cds_qc_select.png}
-\caption{Selection box for quality status on the Global Land And Marine Observations Database download page on the CDS.\\}
-\label{fig:cds_qc}
-%\end{center}
-\end{figure}
-
-\begin{figure}
-\centering
-%\begin{center}
-\includegraphics[width=0.75\textwidth]{resources/cds_year_select.png}
-\caption{Selection box for selecting year on the Global Land And Marine Observations Database download page on the CDS.\\}
-\label{fig:cds_year}
-%\end{center}
-\end{figure}
-
-\begin{figure}
-\centering
-%\begin{center}
-\includegraphics[width=0.75\textwidth]{resources/cds_month_select.png}
-\caption{Selection box for selecting month on the Global Land And Marine Observations Database download page on the CDS.\\}
-\label{fig:cds_month}
-%\end{center}
-\end{figure}
-
-\begin{figure}
-\centering
-%\begin{center}
-\includegraphics[width=0.75\textwidth]{resources/cds_day_select.png}
-\caption{Selection box for selecting day on the Global Land And Marine Observations Database download page on the CDS.\\}
-\label{fig:cds_day}
-%\end{center}
-\end{figure}
-
-\begin{figure}
-\centering
-%\begin{center}
-\includegraphics[width=0.75\textwidth]{resources/cds_area_select.png}
-\caption{Selection box for selecting area on the Global Land And Marine Observations Database download page on the CDS.\\}
-\label{fig:cds_area}
-%\end{center}
-\end{figure}
-
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.75\textwidth]{resources/cds_api_request.png}
-%\caption{Example API request to download data from the Global Land And Marine Observations Database.\\}
-%\label{fig:cds_api}
-%\end{figure}
-
-\begin{figure}
-\begin{verbatim}
-import cdsapi
-c = cdsapi.Client()
-c.retrieve(
-    'in-situ-observatins-surface-marine',
-    {
-        'format': 'csv-obs.zip',
-        'day': '07',
-        'month': '01',
-        'year': '1898',
-        'data_quality': 'quality_controlled',
-        'variable': 'water_temperature',
-    },
-    'download.csv-obs.zip')
-\end{verbatim}
-\caption{Example API request to download data from the Global Land And Marine Observations Database.\\}
-\label{fig:cds_api}
-\end{figure}
-
-
-\FloatBarrier
 \subsection{Data model}
 \label{subsection:data_model}
 Data from the Climate Data Store are returned in delimited text files (.csv), with 19 columns per row and one observed value per row. 
