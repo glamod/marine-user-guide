@@ -1,17 +1,25 @@
 \section{Quality control and processing} \label{processing}
 \subsection{Verification of input data and conversion to a common data model}\label{format-check}
+All data processing and published in this service is handled in the common data model (CDM) used by the GLAMOD service for both land and marine data.
+Marine input data is converted to the CDM, using the Common Data Model reader and mapper (CDM reader/mapper) software package (\cite{lierhammer_2024_14135493}).
+The package is capable of reading in text and NetCDF data records, parsing the contents according to description tables and converting them to the CDM as defined in specific rule sets. 
+During the conversion process, a series of sanity and format checks are applied to the data, allowing corrupt records and systematic problems with the raw data to be identified and excluded from further processing.
+
+Each element has a defined data type and valid range. 
+Similarly, valid enumerated (or coded) values are specified via a code table.
+Any record with any element falling outside the specified valid range, with the exception of missing data, or with any invalid coded value is considered invalid.
+Similarly, reports with an invalid date, time or location are excluded from further processing. 
+
+
 The source data for ICOADS is stored in the fixed width International Maritime Meteorological Archive (IMMA) format (see \url{https://icoads.noaa.gov/doc.html}). 
 This format consists of one weather report per record with a core data section and optional attachments containing additional information.
 Table \ref{tab:imma_structure} summarises the different attachments, those in italic are typically reported with each report regardless of source. 
 The presence of the other attachments depends on both the type of platform/station making the weather report and the source of the data. 
 For example, the IMMT attachment will only be present for ship observations reporting in delayed mode.
 
-Prior to converting to the common data model, used by the C3S2 service for both land and marine data, the individual ICOADS records are checked against the specification of the IMMA format. 
-Each element in IMMA has a defined data type and valid range. 
-Similarly, valid enumerated (or coded) values are specified via a code table.
-Any record with any element falling outside the specified valid range, with the exception of missing data, or with any invalid coded value is considered invalid.
-Similarly, reports with an invalid date, time or location are excluded from further processing. No QC flags are set.
-After validation, the IMMA records are converted to the common data model (see Section \ref{data_model}) and the quality control described below applied.
+After the initial conversion odf the input data sources, the subsequent processing is performed in the CDM framework.
+The indivual processing steps are handled with the GLAMOD marine processing package ({\cite{lierhammer_2024_14215566}).
+
 
 \begin{table}
 \centering
@@ -39,24 +47,67 @@ Error attachment & Error & Attachment designed to support the correction of erro
 \end{table}
 
 \FloatBarrier
-\subsection{Station/platform identification (ship only)}
+
+C-RAID data is stored in NetCDF files that are organized as separate files for each buoy track (\cite{craidNetCDFManual}).
+Each of these track files is decoded and the contents are mapped into the CDM format. 
+A unique identifier is assigned to each observation consisting of the C-RAID track number and the sequential number of the observation in the data file.
+This ensures the traceability of the observations back to the original source file.
+In an intermediate preprocessing step after the initial conversion, the individual track files are reorganized and aggregated to monthly data files.
+These files contain all available buoy observations of the specific month.
+Furthermore, observations that are marked as invalid (time stamp, position) or do not contain any observations in the C-RAID source data set are dropped from further processing in order to reduce the processing overhead.
+
+
+\subsection{Station/platform identification}
 The station/platform identification within ICOADS is stored in the ID field and over the lifetime of the marine meteorological observations and archives a wide variety of formats have been used to identify individual ships. 
 For example, in the early punchcard decks from the 1960s and earlier, ships were assigned a numeric identifier allocated in alphabetical order each year with the ship names written on the back of the punchcard. Lists matching the ship numbers to ship names were created and archived. 
 However, over time and with the conversion from punchcards to magnetic tape and then to digital formats the link between ships names and numbers has been lost, with only the ship number remaining.
 For some decks the ship number has subsequently been dropped where it was thought to have no value without the link to the ship name.
 In other cases the logbook number was used to identify the digitised data, sometimes with a page number appended.
 More recently, ship names or abbreviated ship names have been recorded directly in the digitised data when logbooks have been keyed.
-For realtime data sources we typically have the ITU callsign or a masked/generic identifier.
+For realtime data sources we typically have the International Telecommunication Union (ITU) callsign or a masked/generic identifier.
+With the introduction of WIGOS (WMO Integrated Global Observing System) Station Identifiers (WSI), new identifiers for marine platforms are issued through OceanOps (\url{https://www.ocean-ops.org}).
+For ships, the last segment of the WSI consists of the SOT-ID which is compatible with the traditional callsign fields.
+
 Overall, there are many sources of error and ambiguity in the station/platform identification field.
 These issues are discussed further in \cite{Carella2017_tracking} and we follow the method of \cite{Carella2017_tracking} to link observations from the same ship together.
 As part of this process the ID field has been corrected for known errors and new ids assigned where the ID field is missing, a generic ID assigned or set to a logbook and page number.
+
+Due to the different data management practices and data streams for drifting buoy data compared to ship data, many of the problems encountered, particularly with historical ship data sets, are avoided. 
+The prevalence of mis-coding errors in the date, time, location and buoy ID fields is thought to be negligible.
+In the C-RAID data set the WMO station number is missing in some cases and marked in GLAMOD as "UNKNOWN". It appears that some of the missing ids may be recovered by further comparison with GTS data sources.
+
+
 \FloatBarrier
-\subsection{Duplicate detection and flagging (ship only)} \label{ship-dupelim}
+
+\subsection{Duplicate detection and flagging} \label{dupelim}
+
+Observations in GLAMOD originate from different sources and data streams. Due to multiple copies of historic data or parallel ingestions in real-time data streams, duplicates of observations occur.
+The duplicate detection in near real-time data and historic data streams of ships and buoys are handled with different routines that are described below. Table \ref{tab:dup_flags} list the duplicate flags (element "duplicate\_status") used in the CDM. Additionally, an array of report ids of the duplicates is stored in the "duplicates" element.
+
+\begin{table}[h]
+	\centering
+	\caption{Duplicate flags and meanings used within the common data model}
+	\label{tab:dup_flags}
+	%\begin{center}
+	\begin{tabular}{|p{0.1\linewidth}|p{0.3\linewidth}|p{0.5\linewidth}|}
+		\hline
+		\bfseries Flag value & \bfseries Meaning & \bfseries Comments \\
+		\hline
+		0 & Unique observation, no known duplicates & \\\hline
+		1 & Best duplicate & \\\hline
+		2 & Duplicate & This has been used to identify reports thought to be duplicates but where no selection was made, e.g. because there were unique variables present in each report. (Not used in NRT duplicate check) \\\hline
+		3 & Worst duplicate & \\\hline
+		4 & Unchecked & Reports have not been through the duplicate identification process.\\\hline
+	\end{tabular}
+	%\end{center}
+\end{table}
+
+\subsubsection{ICOADS Release 3.0 (1851-2014 ship data)} \label{ship-dupelim}
 Duplicates exist in ICOADS due to the way that the dataset has been created over many decades with data from many different sources, often with overlapping observations, merged. 
 For example, many national climate archives such as those in the US, UK, Germany and the Netherlands were based on the same source data with the ship logbooks digitised once and then shared between nations. 
 This process has been repeated several times resulting in many duplicates in the underpinning data. 
-For recent decades multiple real time GTS sources have been ingested as this has been shown to increase the number of unique reports but at the expense of increased duplicates. 
-Similarly, when the higher quality delayed mode versions of the real time data are ingested the real time versions need to be identified, flagged and replaced. 
+For recent decades multiple real-time GTS sources have been ingested as this has been shown to increase the number of unique reports but at the expense of increased duplicates. 
+Similarly, when the higher quality delayed mode versions of the real-time data are ingested the real-time versions need to be identified, flagged and replaced. 
 As part of the processing to create ICOADS the duplicate detection and elimination software (DUPELIM) is run, with only those reports believed to be unique released into the final versions (e.g. see \cite{Freeman2017}, \cite{Woodruff2011})\footnote{additional information is also available from https://icoads.noaa.gov/dupelim.html}. The processing for C3S2 uses the ``total'' ICOADS files, which include observations identified as duplicates that have been excluded from the ``final'' data.
 
 The ICOADS DUPELIM software relies heavily on the date, time, location and station / platform identification. 
@@ -66,46 +117,40 @@ In other cases, the data have been modified or stored differently in the differe
 For example, the location of an observation was often recorded as the one degree latitude/longitude grid box the observation was located in.
 On conversion to a latitude/longitude pair the location could be given either as the edge of the grid box or the grid box centre, resulting in different locations for the same observation.
 Conversion between units and the enumeration/translation between code tables can also introduce minor differences.
-As such, due to those differences not all duplicates have been identified by the DUPELIM software and unidentified duplicates exist in the ICOADS final files.
+As such, due to those differences not all duplicates have been identified by the DUPELIM software and unidentified duplicates still exist in the ICOADS final files.
 
 Within the C3S2 service an additional level of duplicate detection has been performed making allowances for these known issues.
-In many cases the results are similar to that of DUPELIM but with an increase of up to 5 - 10 \% in the number of duplicates identified in some periods.
+In many cases the results are similar to that of DUPELIM but with an increase of up to 5~-~10\,\% in the number of duplicates identified in some periods.
 The method and results are fully described in \cite{Kent2019dup}, Table \ref{tab:dup_flags} lists the categorisations used.
 
-\begin{table}[h]
-\centering
-\caption{Duplicate flags and meanings used within the common data model (see Section )}
-\label{tab:dup_flags}
-%\begin{center}
-\begin{tabular}{|p{0.1\linewidth}|p{0.3\linewidth}|p{0.5\linewidth}|}
-\hline
-\bfseries Flag value & \bfseries Meaning & \bfseries Comments \\
-\hline
-0 & Unique observation, no known duplicates & \\\hline
-1 & Best duplicate & \\\hline
-2 & Duplicate & This has been used to identify reports thought to be duplicates but where no selection was made, e.g. because there were unique variables present in each report. \\\hline
-3 & Worst duplicate & \\\hline
-4 & Unchecked & Reports have not been through the duplicate identification process.\\\hline
-\end{tabular}
-%\end{center}
-\end{table}
+For drifting buoys from ICOADS Release 3.0 we make use of the ICOADS intermediate reject flag (IRF) to identify the best duplicates to keep.
+Drifting buoy reports with IRF set to \texttt{retain} have their report quality flag within the common data model set to 0 (pass).
+All other buoy reports have their report quality flag set to 1 (failed). In all cases, the duplicate flag is set to 4 (unchecked).
+
 
 \FloatBarrier
-\subsection{Drifting buoy identification and duplicate flagging}\label{buoy-dupelim}
-Due to the different data management practices and data streams for the drifting buoy data compared to ships many of the issues present in the ship data are avoided. 
-The prevalence of mis-coding errors in the date, time, location and buoy ID fields is thought to be negligible.
-As such, within the C3S2 service we make use of the ICOADS intermediate reject flag (IRF) to identify the best duplicates to keep.
-Drifting buoy reports with IRF set to \texttt{retain} have their report quality flag within the common data model set to 0 (pass).
-All other buoy reports have their report quality flag set to 1 (failed). 
-In all cases, the duplicate flag is set to 4 (unchecked).
+
+\subsubsection{Duplicate flagging (Near-real-time data and C-RAID drifting buoys)}\label{nrt-dupelim}
+For near-real-time data from 2015 on (ship data from ICOADS Release 3.0.2 and C-RAID drifting buoys), a new duplicate detection scheme has been implemented for GLAMOD Release 7.
+This procedure is more lightweight than the procedure for historic data, as we assume to have less divergence due to coding or copy errors in position, time and platform id information in recent real-time data streams.
+
+The duplicate detection utilizes the Python Record Linkage Toolkit (\cite{jonathan_de_bruin_2023_8169000}) which provides efficient indexing methods as well as functions to compare records and classifiers.
+With the current implementation we compare observation date, time, location and primary\_station\_id, allowing a window of \pm 1 minute in time and \pm 0.1 degree for lat/lon with a gaussian decay. Additionally, station course and speed are compared, if available.
+A penalty is assigned with increasing deviation between two observations and the comparison results are normalized and scored.
+Scores with more than 99.1 percent similarity are treated as duplicates. 
+A two step approach was implemented trying to eliminate duplicates with generic or masked primary station Ids in favour of observations with a valid station Id in the first step and then searching for all other duplicates in the second step.
+C-RAID buoy data is handled slightly different, by ignoring the primary\ station\ id to identify duplicates with presumably incorrect station Ids.
+Additionally, the comparison windows for drifting buoys are configured with narrower limits for time and latitude/longitude to account for the much higher observation frequency and slower movement of the buoys.
+
 \FloatBarrier
 \subsection{Advanced quality control}
 Once the observations have been through the initial format checks, station / platform identification and duplicate flagging three additional stages of quality control are performed. 
 These are based on a scheme developed by the UK Met Office and described in \cite{Kennedy2019} and repeated here for completeness.
 Prior to proceeding to the advanced quality control some pre-screening is performed.
-For a ship based report to proceed to the advanced quality control stage it needs to have been flagged as either the best duplicate or a unique report (section \ref{ship-dupelim}).
-For a buoy based report to proceed it needs to have been flagged for retention by the ICOADS IRF flag and initially marked as passing the report quality check (section \ref{buoy-dupelim}).
+For a ship based report to proceed to the advanced quality control stage it needs to have been flagged as either the best duplicate or a unique report.
+For a buoy based report to proceed it needs to have been flagged for retention by the ICOADS IRF flag and initially marked as passing the report quality check.
 All other observations have their report and observation quality flags set to unchecked. No additional quality control data will be generated for these reports.
+
 \FloatBarrier
 \subsubsection{Report level quality control} \label{report-qc}
 The report level quality control checks are similar to those performed as part of the verification of input data (section \ref{format-check}).
@@ -115,7 +160,7 @@ Observations with a station/platform identifier matching one on the list or from
 The flags are:
 \begin{itemize}
 \item \texttt{Time check}: Check whether time of observation is valid (0 $\leq$ hour $\leq$ 24). 1 returned for invalid or missing times, 0 otherwise.
-\item \texttt{Date check}: Check whether date is valid and in the range 1850 to 2024. 1 returned for invalid dates or dates outside the specified range, 0 otherwise.
+\item \texttt{Date check}: Check whether date is valid and in the time range of the current release. 1 returned for invalid dates or dates outside the specified range, 0 otherwise.
 \item \texttt{Location check}: Check whether location (latitude and longitude) is valid. 1 returned for latitude outside the range 90°S to 90°N or for longitude outside the range 180°W to 360°E. 1 also returned for missing data, 0 returned in all other cases.
 \item \texttt{Landlocked check}: Check whether the record is located on land according to the ICOADS `LZ' landlocked flag.
 \item \texttt{Blacklist}: Flag set to 1 for any observation matching a condition listed in table \ref{tab:blacklist}, 0 otherwise.
@@ -171,14 +216,27 @@ Mis-positioned MORMET data (deck 732) & Observations from the Russian Marine Met
 \end{table}
 
 \FloatBarrier
+
+
 \subsubsection{Observation level quality control} \label{obs-qc}
+
+The following checks are performed for each individual observation.
 
 \begin{itemize}[resume]
 \item \texttt{No value check}: checks for the presence of missing data. Returns 1 for missing data, 0 otherwise.
 \item \texttt{No normal check}: checks for the availability of a climatological value at the date and position of the observation. Returns 1 if no climatology is available, 0 otherwise.
-\item \texttt{Climatology check}: checks the magnitude of anomalies against a predefined range. Returns 1 for values outside the range, 0 otherwise,
+\item \texttt{Climatology check}: checks the magnitude of anomalies against a predefined range. Returns 1 for values outside the range, 0 otherwise.
 \item \texttt{Freezing value check}: Sea surface temperature only, checks whether the temperature is below the approximate freezing point of water (-1.8°C). Set to 1 for temperatures below -1.8°C, 0 otherwise. 
 \item \texttt{Super-saturation check}: Dew point temperature only, checks whether the dew point temperature is greater than the air temperature. Returns 1 if dew point temperature greater than air temperature, 0 otherwise.
+\item \texttt{Wind speed / direction check}: No climatology check is performed for wind speed and direction. Observations are flagged as 1 (QC failed) if:
+\subitem wind speed < 0 m/s
+\subitem wind speed > 99.9 m/s 
+\subitem wind direction < 0°
+\subitem wind direction > 360°
+\subitem wind speed == 0 m/s and direction != 0° (calm winds)
+\subitem wind speed != 0 m/s and direction == 0° (variable winds)
+
+
 \end{itemize}
 
 \FloatBarrier
@@ -205,7 +263,7 @@ Only stations/platforms with a non-generic identifier are subject to the along t
 \subsubsection{Buddy check}
 The final check applied to the ship observations is the buddy check.  
 All observations of a given parameter passing the previously described checks are converted to anomalies by subtraction of the climatological value and averaged onto a 1 by 1 degree 5 day grid. 
-The grid box standard deviation ($\sigma$)is also calculated at this stage.
+The grid box standard deviation ($\sigma$) is also calculated at this stage.
 For each grid box (target grid box) the neighbouring area is searched for grid boxes with data according to the search parameters listed in Table\,\ref{tab:buddy_check}.
 If no grid boxes are found the search area is increased in size, doubling the spatial search radius.
 If still no grid boxes are found the temporal search radius is then doubled.
@@ -256,6 +314,10 @@ The checks are:
 \item \texttt{SST short record check}: For buoy records with a small number of observations, compares SSTs to a reference to assess whether too many buoy reports are in gross error. Returns 1 for all record reports if failing the check, 0 otherwise.    
 \end{itemize}
 
+Note: In the current release, these checks are not applied to C-RAID drifting buoy data that is included from 2015 on. 
+The observations in this data set have been checked with an advanced QC during the GDAC processing that includes the above checks (See \cite{craidQCManual} for details).
+The corresponding quality flags from the source data set are mapped directly to the CDM.
+
 \subsection{Report and Observation Quality Flags}\label{aggregate_qc}
 To aid the user in selecting data the flags described above have been aggregated into in two simple flags.
 The first indicates the overall quality of the weather report.
@@ -304,7 +366,7 @@ Typically, an extra 5 - 10\% of reports are removed by the overall report qualit
 
 \begin{figure}[htp]
     \includegraphics[width=0.95\textwidth]{resources/duplicate_status-ts.png}
-    \caption{Percentage of reports flagged as unique, best duplicate, duplicate, worst duplicate or unchecked in the current data release. Reports from drifting buoys are unchecked at this stage.\\}
+    \caption{Percentage of reports flagged as unique, best duplicate, duplicate, worst duplicate or unchecked in the current data release. Reports from drifting buoys are unchecked at this stage. \\}
     \label{fig:dup_status}
 \end{figure}
 
