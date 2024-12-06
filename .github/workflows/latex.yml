@@ -20,7 +20,8 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-          pre_compile: cd mug_document_src 
+          pre_compile: cd mug_document_src
+          extra_system_package: "verdana" 
           latexmk_use_lualatex: true
       - name: Commit and push PDF
         uses: stefanzweifel/git-auto-commit-action@v5
