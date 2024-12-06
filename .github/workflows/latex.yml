@@ -20,10 +20,9 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-          # extra_system_packages: Verdana
-          extra_fonts: Verdana
           pre_compile: cd mug_document_src
           latexmk_use_lualatex: true
+          args: "-synctex=1 -interaction=nonstopmode"
       - name: Commit and push PDF
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
