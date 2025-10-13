@@ -1,0 +1,25 @@
+{
+    "input_dir": "/ichec/work/glamod/data/marine/marine",
+    "output_dir": "/ichec/work/glamod/data/marine/marine/marine-user-guide_202510/",
+    "mug_version": "v10",
+    "release_names": [
+        "release_8.0"
+    ],
+    "dataset_names": {
+	"release_8.0": "C-RAID_1.2"
+    },
+    "year_init": 1978,
+    "year_end": 2018,
+    "sid_dck": {
+        "202412": {
+           "year_init": {
+                "release_8.0": 1978
+           },
+           "year_end": {
+                "release_8.0": 2019
+           },
+           "exclude": false,
+           "params_exclude": []
+        }
+    }
+}

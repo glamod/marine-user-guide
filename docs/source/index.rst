@@ -47,6 +47,7 @@ Build the python environment using the requirements.txt.
 
 .. code-block:: bash
 
+  cd marine-user-guide
   python -m venv .venv/MUG
   source .venv/MUG/bin/activate
   pip install -r marine-user-guide/env/requirements.txt
@@ -58,23 +59,17 @@ Some directory paths and handles are used throughout this document and are summa
   
 .. table:: Some directory paths and handles used throughout the document.
   
-  ========== ============================================ ============================================================== 
-  Shorthand  Description                                  Example                                                       
-  ========== ============================================ ==============================================================    
-  <MUG>      Marine User Guide home directory             /ichec/work/glamod/glamod_marine/marine-user-guide            
-  <MUG_data> Marine User Guide data directory             /ichec/work/glamod/data/marine/marine/marine-user-guide_202411
-  <version>  Tag of the MUG version                       v9                                                            
-  <release   Tag of GLAMOD data release                   release_7.0                                                   
-  <log_dir>  Directory for log files                      <MUG_data>/<version>/level2/log                               
-  <MUG_list> ASCII file for sid-dck partitions to process <MUG>/config/<release>/mug_list_full.txt                      
-  ========== ============================================ ==============================================================
-
-Edit file marine-user-guide/setpaths.sh and modify as needed the following fields:
-
-* code_directory: parent path of the repository installation.
-* data_directory: parent path to the data release directories.
-* mug_code_directory: marine user guide code directory installation.
-* mug_data_directory: marine user guide data directory path.
+  ============= ============================================ ============================================================== 
+  Shorthand     Description                                  Example                                                       
+  ============= ============================================ ==============================================================    
+  <MUG>         Marine User Guide home directory             /ichec/work/glamod/glamod_marine/marine-user-guide            
+  <MUG_data>    Marine User Guide data directory             /ichec/work/glamod/data/marine/marine/marine-user-guide_202510
+  <MUG_version> Tag of the MUG version                       v10                                                            
+  <release      Tag of GLAMOD data release                   release_8.0                                                   
+  <log_dir>     Directory for log files                      <MUG_data>/<version>/level2/log                               
+  <MUG_list>    ASCII file for sid-dck partitions to process <MUG>/config/<release>/mug_list_full.txt                     
+  <MUG_config>  Marine User Guide configuration JSON file    <MUG>/config/<release>/mug_config.json
+  =========== ============================================== ==============================================================
 
 Marine User Guide
 =================
@@ -96,13 +91,9 @@ The marine-user-guide data directory is then split in directories to host subseq
   :width: 300
   :align: center
 
-This general directory needs to be created before starting using the tool.
+Edit <MUG_list> and <MUG_config> as needed for <MUG_version>.
 
-.. code-block:: bash
-
-  mkdir <MUG_data> 
-  
-Every new version of the MUG needs to be initialized in the tools data directory as shoen in figure 2.
+Every new version of the MUG needs to be initialized in the tools data directory as shown in figure 2.
 
 .. figure:: ../pics/file_links.png
   :width: 300
@@ -116,28 +107,24 @@ These steps initialize a new version:
 
 .. code-block:: bash
 
-  source <MUG>/setpaths.sh
-  source <MUG>/setenv.sh
   python <MUG>/init_version/init_config.py
 
 See table 1 for the meaning of the shorthands.
-This step creates a mug_config file and a mug_list file which are used in the folowwing.
-An example if this step is as follows:
+This step copies a <MUG_config> and a <MUG_list> to <MUG_data>/<MUG_version>.
+Hereinafter, referred to as **MUG_version_config** and **MUG_version_list**
+An example of this step is as follows:
 
 .. code-block:: bash
 
   $ python init_version/init_config.py
-  Input name of release (no path: release_7.0)
-  Input name of dataset (no path): ICOADS_R3.0.2.T
-  Input filename with part of level2 condifuration file: /ichec/work/glamod/glamod-marine-processingglamod-marine-processing/obs_suite/configuration_files/release_7.0/000000/ICOADS_R3.0.2T/level2.json    
+  Input name of release (no path: release_8.0)
+  Input name od dataset (no path: icoads, craid)
 
 2. Create the directory tree for the version in the marine-user-guide data directory.
 
   .. code-block:: bash
 
-    source <MUG>/setpaths.sh
-    source <MUG>/setenv.sh
-    python <MUG>/init_version/create_version_dir_tree.py <MUG_data> <version> ?mug_config?
+    python <MUG>/init_version/create_version_dir_tree.py <MUG_version_config>
 
 Note that the first two lines do not need to be repeated if these steps are performed in one session. 
 For completeness we will repeat them every time here.
@@ -150,7 +137,7 @@ A bash script links each data partition and logs to <log_dir>/sid-dck/merge_rele
 
   .. code-block:: bash
 
-    .<MUG>/init_version/merge_release_data.slurm <version> mug_config mug_list
+    .<MUG>/init_version/merge_release_data.slurm <MUG_version_config> <MUG_version_list>
 
   where:
 
@@ -213,10 +200,8 @@ The same tool can be used to produce data summaries with different filter criter
 
 .. code-block:: bash
 
-  source <MUG>/setpaths.sh
   source <MUG>/setenv.sh
-  cd <MUG>/data_summaries
-  python monthly_agg_slurm.py <version> ../config/<release>/data_summaries/monthly_grids.json
+  python <MUG>/data_summaries/monthly_agg_slurm.py <MUG_versin_config>
   
 See table 1 for the meaning of the <shorthands>.
 
@@ -279,10 +264,8 @@ Where <MUG_config> is defined in <MUG>/setpath.sh.
 
 .. code-block:: bash
 
-  source <MUG>/setpaths.sh
   source <MUG>/setenv.sh
-  cd <MUG>/figures
-  ./plot_all.sh <version> <release> <options>
+  <MUG>/figures/plot_all.sh <MUG_version_config> <options>
 
 where <options> can be `grid` or `ts` to specify to plot only gridded properties (`grid`) or only time series type plots (`ts`). If not specified all figures are created.
 
@@ -297,7 +280,7 @@ Appendix
 ========
 The configuration files needed to run this project are maintained in the glamod github repository (https://github.com/glamod/marine-user-guide) under directory config/<release>. 
 Every Marine User Guide version has a dedicated directory within this repository which are further subdivided by data summaries and figures, for the whole dataset and optionally for individual source-deck combination (`sd`).
-The Marine User Guide v9 has been created by *MUG v9* of the github Marine User Guide repository without individual source-deck-combination.
+The Marine User Guide v10 has been created by *MUG v10* of the github Marine User Guide repository without individual source-deck-combination.
 
 .. rubric:: Footnotes
 

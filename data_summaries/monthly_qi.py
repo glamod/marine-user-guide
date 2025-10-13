@@ -35,12 +35,12 @@ from dateutil import rrule
 from common import query_cdm 
 
 def value_counts(cdm_table_ym,column,loc_ships,loc_buoys):
-    vc = cdm_table_ym[column].value_counts()
+    vc = cdm_table_ym.value_counts()
     vc.index = [ str(x) for x in vc.index ]
-    buoys = cdm_table_ym[column].loc[cdm_table_ym['platform_type'] == 5 ]
+    buoys = cdm_table_ym.loc[cdm_table_ym['platform_type'] == 5 ]
     vc_buoys = buoys.value_counts() 
     vc_buoys.index = [ str(x) + '.buoys' for x in vc_buoys.index ]
-    ships = cdm_table_ym[column].loc[cdm_table_ym['platform_type'] != 5 ]
+    ships = cdm_table_ym.loc[cdm_table_ym['platform_type'] != 5 ]
     vc_ships = ships.value_counts()
     vc_ships.index = [ str(x) + '.ships' for x in vc_ships.index ]
     nreports = pd.Series(index=['nreports'],data=[len(cdm_table_ym)])
@@ -71,7 +71,6 @@ def main():
     kwargs['dir_data'] = dir_data
     kwargs['cdm_id'] = '*'
     kwargs['columns'] = ['report_id','platform_type']
-    kwargs['columns'].append(qi)
     table = 'header'
     
     # CREATE THE MONTHLY STATS ON THE DF PARTITIONS -------------------------------
