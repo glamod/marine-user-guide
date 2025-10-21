@@ -20,7 +20,7 @@ from imp import reload
 reload(logging)  # This is to override potential previous config of logging
 
 # PARAMS ----------------------------------------------------------------------
-LEVELS = ['level1a','level1c','level2']
+levels = ['level1a','level1c','level2']
 level_subdirs = {}
 level_subdirs['level1a'] = ['quicklooks']
 level_subdirs['level1c'] = ['quicklooks']
@@ -30,6 +30,7 @@ level_subdirs['level2'] = ['log','reports']
 class script_setup:
     def __init__(self, inargs):
         self.mug_config_file = inargs[1]
+        self.mug_list_file = inargs[2]
         
 def create_subdir(lpath,subdir_list):
     subdir_list = [subdir_list] if isinstance(subdir_list,str) else subdir_list
@@ -51,10 +52,11 @@ def main():
     
     params = script_setup(args)
     
-    with open(params.mug_config_file,'r') as fO:
+    with open(params.mug_list_file, "r") as fO:
+        sid_list = [line.strip() for line in fO.readlines()]
+
+    with open(params.mug_config_file, "r") as fO:
         mug_config = json.load(fO)
-    
-    sid_list = list(mug_config['sid_dck'].keys())
     
     # Create the directory structure
     mug_path = mug_config["output_dir"]
@@ -63,10 +65,10 @@ def main():
     logging.info('Creating dir {}'.format(mug_version_path))
     create_subdir(mug_path, mug_version)
     
-    logging.info('Adding levels: {}'.format(','.join(LEVELS)))
-    create_subdir(mug_version_path,LEVELS)
+    logging.info('Adding levels: {}'.format(','.join(levels)))
+    create_subdir(mug_version_path, levels)
     
-    for level in LEVELS:
+    for level in levels:
         logging.info('Level {}, adding source-deck directories and subdirectories'.format(level))
         level_subdir = os.path.join(mug_version_path,level)
         create_subdir(level_subdir,sid_list)

@@ -240,8 +240,9 @@ if __name__ == "__main__":
     with open(config_file) as cf:
         config = json.load(cf)
 
-    dir_data = config['dir_data']
-    dir_out = config['dir_out']
+    file_path = sys.argv[2]
+    dir_data = file_path
+    dir_out = file_path
     projection = config['projection']
     min_obs = config.get('min_obs')
 

@@ -1,3 +1,5 @@
 { "file_data":"duplicate_status-ts.psv",
-  "file_out":"duplicate_status-ts.png"
+  "file_out":"duplicate_status-ts.png",
+  "year_init": 1851,
+  "year_end": 2024
 }

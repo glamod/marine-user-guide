@@ -1,3 +1,5 @@
 { "file_data":"report_quality-ts.psv",
-  "file_out":"nreports-ts.png"
+  "file_out":"nreports-ts.png",
+  "year_init": 1851,
+  "year_end": 2024
 }

@@ -34,12 +34,6 @@ TIME='05:00:00'
 NODES=1
 TasksPN=12#190/GBpernode
 
-
-#mem=10000
-#om=truncate
-
-
-
 if len(sys.argv)==2:
     logging.info('Reading command line arguments')
 else:
@@ -54,7 +48,7 @@ with open(mug_config_file) as cfg:
     config = json.load(cfg)
 
 version=config["mug_version"]
-release=config["release_names"][0]
+release=config["glamod_release"]
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 mug_code_dir = os.path.abspath(os.path.join(script_dir, ".."))
@@ -120,8 +114,8 @@ with open(taskfile, 'w') as fn:
             os.remove(failedfile_qi)
 
         fn.writelines('python {0} {1} {2} > {3} 2> {3}; if [ $? -eq 0 ]; then touch {4}; else touch {5}; fi \n'.format(pyscript_qi, grid_config_file2, qi, logfile_qi, successfile_qi, failedfile_qi))
-        #grid_config==qi_config!
 
+os.chmod(taskfile, 0o755)
 
 with open(slurmfile,'w') as fh:
     fh.writelines('#!/bin/bash\n')
@@ -130,7 +124,6 @@ with open(slurmfile,'w') as fh:
     fh.writelines('#SBATCH --error={}/%a.err\n'.format(logdir))
     fh.writelines('#SBATCH --time={}\n'.format(TIME))
     fh.writelines('#SBATCH --nodes={}\n'.format(NODES))
-    #fh.writelines('#SBATCH --mem={}\n'.format(MEM))
     fh.writelines('#SBATCH -A glamod\n')
     fh.writelines('module load taskfarm\n')
     fh.writelines('export TASKFARM_PPN={}\n'.format(TasksPN))
@@ -138,9 +131,7 @@ with open(slurmfile,'w') as fh:
 
 
 logging.info('{}: launching taskfarm'.format(taskfile))
-#process = "jid=$(sbatch {}) && echo $jid".format(slurmfile)
-#jid = launch_process(process)
-subprocess.call(["/bin/sh", taskfile], shell=True)
+#subprocess.call(["/bin/sh", taskfile], shell=True)
 
 
 

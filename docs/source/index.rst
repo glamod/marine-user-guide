@@ -107,6 +107,7 @@ These steps initialize a new version:
 
 .. code-block:: bash
 
+  source <MUG>/setenv.sh 
   python <MUG>/init_version/init_config.py
 
 See table 1 for the meaning of the shorthands.
@@ -118,13 +119,12 @@ An example of this step is as follows:
 
   $ python init_version/init_config.py
   Input name of release (no path: release_8.0)
-  Input name od dataset (no path: icoads, craid)
 
 2. Create the directory tree for the version in the marine-user-guide data directory.
 
   .. code-block:: bash
 
-    python <MUG>/init_version/create_version_dir_tree.py <MUG_version_config>
+    python <MUG>/init_version/create_version_dir_tree.py <MUG_version_config> <MUG_version_list>
 
 Note that the first two lines do not need to be repeated if these steps are performed in one session. 
 For completeness we will repeat them every time here.
@@ -151,6 +151,10 @@ not match, it will prompt an error.
 .. code-block:: bash
 
   .<MUG>/init_version/merge_release_data_check.sh
+
+.. important::
+
+  This is not working yet!
 
 
 Data summaries
@@ -204,6 +208,15 @@ The same tool can be used to produce data summaries with different filter criter
   python <MUG>/data_summaries/monthly_agg_slurm.py <MUG_versin_config>
   
 See table 1 for the meaning of the <shorthands>.
+
+This creates a txt file containig python commands in <MUG_data>/<MUG_version>/level2/log/monthly.tasks.
+You can simply run it by:
+
+.. code-block:: bash
+
+  <MUG_data>/<MUG_version>/level2/log/monthly.tasks
+
+Or you can execute the single python commands in your terminal.
 
 Figures
 -------
@@ -284,7 +297,7 @@ The Marine User Guide v10 has been created by *MUG v10* of the github Marine Use
 
 .. rubric:: Footnotes
 
-.. [#gmp] Lierhammer, L., Andersson, A., Leiding, T., Cornes, R., Kent, E., and Siddons, J. (2024). glamod-marine-processing: Toolbox for GLAMOD marine processing (v7.1.0). Zenodo. https://doi.org/10.5281/zenodo.14215566
+.. [#gmp] Lierhammer, L., Andersson, A., Leiding, T., Cornes, R., Kent, E., Siddons, J., and Kennedy, J. (2025). glamod-marine-processing: Toolbox for GLAMOD marine processing (v8.0.0). Zenodo. https://doi.org/10.5281/zenodo.17404810
 .. [#fDDS] When producing data summaries and figures of individual source-decks \
   of a single release, the data is accessed directly from the release data
   directory.

@@ -105,7 +105,7 @@ def main():
             out_file = os.path.join(dir_out,qi + '-ts_part.psv')
             counts_df.to_csv(out_file,sep='|',na_rep='0')
     
-    
+    exit()
     out_file = os.path.join(dir_out,qi + '-ts.psv')    
     counts_df.to_csv(out_file,sep='|',na_rep='0')
 

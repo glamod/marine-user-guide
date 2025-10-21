@@ -40,8 +40,7 @@ def main():
     init_dir = os.path.dirname(os.path.abspath(__file__))
     release = input("Input name of release (no path: release_8.0): ")
     config_dir = os.path.join(init_dir, "..", "config", release)
-    dataset = input("Input name of dataset (no path: icaods, craid): ")
-    mug_config_src = os.path.join(config_dir, f"mug_config_{dataset}.json")
+    mug_config_src = os.path.join(config_dir, "mug_config.json")
 
     with open(mug_config_src) as cfg:
         mug_config = json.load(cfg)
@@ -54,9 +53,9 @@ def main():
     os.makedirs(mug_dir, exist_ok=True)
     os.makedirs(mug_dst, exist_ok=True)
 
-    mug_config_dst = os.path.join(mug_dst, f"mug_config_{dataset}.json")
-    mug_list_src = os.path.join(config_dir, f"mug_list_full_{dataset}.txt")
-    mug_list_dst = os.path.join(mug_dst, f"mug_list_full_{dataset}.txt")
+    mug_config_dst = os.path.join(mug_dst, f"mug_config.json")
+    mug_list_src = os.path.join(config_dir, f"mug_list_full.txt")
+    mug_list_dst = os.path.join(mug_dst, f"mug_list_full.txt")
     print(f"Create MUG files: {mug_config_dst} and {mug_list_dst}")
     shutil.copy(mug_config_src, mug_config_dst)
     shutil.copy(mug_list_src, mug_list_dst)
