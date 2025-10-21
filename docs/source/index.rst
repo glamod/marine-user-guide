@@ -69,7 +69,7 @@ Some directory paths and handles are used throughout this document and are summa
   <log_dir>     Directory for log files                      <MUG_data>/<version>/level2/log                               
   <MUG_list>    ASCII file for sid-dck partitions to process <MUG>/config/<release>/mug_list_full.txt                     
   <MUG_config>  Marine User Guide configuration JSON file    <MUG>/config/<release>/mug_config.json
-  =========== ============================================== ==============================================================
+  ============= ============================================ ==============================================================
 
 Marine User Guide
 =================
