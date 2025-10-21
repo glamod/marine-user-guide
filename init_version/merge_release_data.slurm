@@ -11,30 +11,32 @@
 #mem=100
 #om=truncate
 # ------------------------------------------------------------------------------
-source ../setpaths.sh
-source ../setenv.sh
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" 
+source $script_dir/../setenv.sh
 
 #Do the sourcing before!
 
 # Here make sure we are using fully expanded paths, as some may be passed to a config file
-version=$1
-script_config_file=$(readlink --canonicalize $2)
-process_list=$(readlink --canonicalize $3)
+script_config_file=$(readlink --canonicalize $1)
+process_list=$(readlink --canonicalize $2)
+
+version=$(grep '"mug_version"' $script_config_file | cut -d':' -f2 | tr -d '", ')
+data_directory=$(grep '"input_dir"' $script_config_file | cut -d':' -f2 | tr -d '", ')
+mug_code_directory=$script_dir/..
+mug_data_directory=$(grep '"output_dir"' $script_config_file | cut -d':' -f2 | tr -d '", ')
 
 pyscript="$mug_code_directory/init_version/merge_release_data.py $data_directory $mug_data_directory/$version $script_config_file"
 log_dir=$mug_data_directory/$version/level2/log
 if [ ! -d $log_dir ]
 then
-  echo "LOG dir does not exist: $log_dir"
+  echo "LOG directory does not exist: $log_dir"
   exit
 fi
 
 echo "LOG directory is $log_dir"
 
-
 for sid_dck in $(awk '{print $1}' $process_list)
 do
-  echo "$sid_dck"
   log_dir_sd=$log_dir/$sid_dck
   if [ ! -d $log_dir_sd ]
   then
@@ -51,8 +53,6 @@ do
   if [ -f "$ok_file" ];then 
     echo "$ok_file exists, proceeding to next (no rerun)"
   else
-    #jid=$(sbatch -J $J -o $log_file -e $log_file -p $queue -t $t --mem $mem --open-mode $om --wrap="python $pyscript $sid_dck")
-    #sbatch --dependency=afternotok:${jid##* } --kill-on-invalid-dep=yes -p $queue -t 00:05:00 --mem 1 --open-mode $om --wrap="mv $log_file $failed_file"
     if python $pyscript $sid_dck > $log_file; then
       mv $log_file $ok_file
     else

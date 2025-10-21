@@ -4,6 +4,7 @@
 Created on Thu Sep 20 11:43:22 2018
 @author: iregon
 """
+import os
 import json
 import sys
 import logging
@@ -36,9 +37,10 @@ if __name__ == "__main__":
     
     with open(config_file) as cf:
         config = json.load(cf)
-    
-    file_data = config['file_data']
-    file_out = config['file_out']
+
+    file_path = sys.argv.[2]
+    file_data = os.path.join(file_path, config['file_data'])
+    file_out = os.path.join(file_path, config['file_out'])
     year_init = int(config['year_init'])
     year_end = int(config['year_end'])
     data = pd.read_csv(file_data,delimiter='|',header = 0,index_col=[0],parse_dates=[0])

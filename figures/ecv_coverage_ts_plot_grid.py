@@ -46,8 +46,9 @@ if __name__ == "__main__":
     with open(config_file) as cf:
         config = json.load(cf)
     
-    dir_data = config['dir_data']
-    dir_out = config['dir_out']
+    file_path = sys.argv[2]
+    dir_data = file_path
+    dir_out = file_path
     file_in_id = config['file_in_id']
     file_out = config['file_out']
     start_int = config['start']

@@ -1,0 +1,42 @@
+{
+    "input_dir": "/ichec/work/glamod/data/marine/marine",
+    "output_dir": "/ichec/work/glamod/data/marine/marine/marine-user-guide_202510/",
+    "mug_version": "v10",
+    "glamod_release": "release_8.0",
+    "year_init": 1851,
+    "year_end": 2024,
+    "datasets": {
+	"release_8.0": {
+	  "C-RAID_1.2": {
+	    "year_init": 1978,
+            "year_end": 2019,
+	    "sid_dck": {	    
+              "202412": {
+                "exclude": false,
+                "params_exclude": []
+	      }
+            }
+	  },
+	  "ICOADS_R3.0.0T": {
+	    "year_init": 1851,
+	    "year_end": 2014,
+	    "sid_dck": {
+	      "PT2": {
+	        "exclude": false,
+		"params_exclude": []
+	      }    
+	    }
+	  },
+	  "ICOADS_R3.0.2T": {
+	    "year_init": 2015,
+	    "year_end": 2024,
+	    "sid_dck": {
+	      "PT2": {
+	        "exclude": false,
+		"params_exclude": []
+	      }
+	    } 
+	  }
+        }
+    }
+}

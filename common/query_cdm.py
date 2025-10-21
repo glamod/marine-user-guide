@@ -78,7 +78,8 @@ def get_data_from_file(sid_dck, table, year, month, dir_data, **kwargs):
     logging.basicConfig(format='%(levelname)s\t[%(asctime)s](%(filename)s)\t%(message)s',
                     level=logging.INFO,datefmt='%Y%m%d %H:%M:%S',filename=None)
     # See if there is an external table to filter from 
-    try:
+    #try:
+    if True:
         tables = []  
         if kwargs.get('filter_by_values'):
             tables.extend(list(set([ x[0] for x in kwargs['filter_by_values'].keys() ])))
@@ -112,12 +113,13 @@ def get_data_from_file(sid_dck, table, year, month, dir_data, **kwargs):
         cols, query = build_pd_query(table,
                                     filter_by_values = kwargs.get('filter_by_values'),
                                     filter_by_range = kwargs.get('filter_by_range'))
+        
         cols.extend([FILTER_PIVOT])
         if kwargs.get('columns'):
             cols.extend(kwargs.get('columns'))
             cols = list(set(cols))
         else: # if not specified, read all
-            cols = None   
+            cols = None
         table_file = '-'.join(filter(None,[table,str(year),str(month).zfill(2),kwargs.get('cdm_id')])) + '.psv'
         table_paths = glob.glob(os.path.join(dir_data,sid_dck,table_file))
         if len(table_paths) > 1:
@@ -139,11 +141,11 @@ def get_data_from_file(sid_dck, table, year, month, dir_data, **kwargs):
         # Subset to requested
         if kwargs.get('columns'):
             df = df[kwargs.get('columns')]
-    except Exception as e:
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
-        logging.error('Querying data from file', exc_info=True)
+    #except Exception as e:
+    #    exc_type, exc_obj, exc_tb = sys.exc_info()
+    #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+    #    print(exc_type, fname, exc_tb.tb_lineno)
+    #    logging.error('Querying data from file', exc_info=True)
         
     return df
     

@@ -23,7 +23,7 @@ project = 'marine-user-guide'
 copyright = '2020-2024, Ludwig Lierhammer, Axel Andersson and Tina Leiding'
 
 # The full version, including alpha/beta/rc tags
-release = 'v9'
+release = 'v10'
 
 # -- General configuration ---------------------------------------------------
 
