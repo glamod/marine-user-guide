@@ -33,7 +33,8 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: mug_document_src/main.tex
+          working_directory: mug_document_src
+          root_file: main.tex
           latexmk_use_lualatex: true
           args: "-synctex=1 -interaction=nonstopmode"
       - name: Commit and push PDF
