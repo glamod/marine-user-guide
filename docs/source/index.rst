@@ -28,8 +28,8 @@ version.
 Every new data release can potentially be created with a different version of
 the marine processing software. The current version of this project is
 compatible with the glamod-marine-processing [#gmp]_ code 
-(https://glamod-marine-processing.readthedocs.io) up to version v7.1.0 
-(https://zenodo.org/records/14215566).
+(https://glamod-marine-processing.readthedocs.io) up to version v8.0.0 
+(https://zenodo.org/records/17404810).
 
 Tool set-up
 ===========
