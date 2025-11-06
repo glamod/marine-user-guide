@@ -35,19 +35,20 @@ from dateutil import rrule
 from common import query_cdm 
 
 def value_counts(cdm_table_ym,column,loc_ships,loc_buoys):
-    vc = cdm_table_ym.value_counts()
+    vc = cdm_table_ym.value_counts(column)
     vc.index = [ str(x) for x in vc.index ]
-    buoys = cdm_table_ym.loc[cdm_table_ym['platform_type'] == 5 ]
-    vc_buoys = buoys.value_counts() 
+    buoys = cdm_table_ym.loc[loc_buoys]
+    vc_buoys = buoys.value_counts(column) 
     vc_buoys.index = [ str(x) + '.buoys' for x in vc_buoys.index ]
     ships = cdm_table_ym.loc[cdm_table_ym['platform_type'] != 5 ]
-    vc_ships = ships.value_counts()
+    vc_ships = ships.value_counts(column)
     vc_ships.index = [ str(x) + '.ships' for x in vc_ships.index ]
     nreports = pd.Series(index=['nreports'],data=[len(cdm_table_ym)])
     nreports_ships = pd.Series(index=['nreports.ships'],data=[len(ships)])
     nreports_buoys = pd.Series(index=['nreports.buoys'],data=[len(buoys)])
     
-    return pd.concat([nreports,nreports_buoys,nreports_ships,vc,vc_buoys,vc_ships])    
+    df_test = pd.concat([nreports,nreports_buoys,nreports_ships,vc,vc_buoys,vc_ships])    
+    return df_test
 
 def main():       
        
@@ -70,7 +71,7 @@ def main():
     kwargs = {}
     kwargs['dir_data'] = dir_data
     kwargs['cdm_id'] = '*'
-    kwargs['columns'] = ['report_id','platform_type']
+    kwargs['columns'] = ['report_id','platform_type', qi]
     table = 'header'
     
     # CREATE THE MONTHLY STATS ON THE DF PARTITIONS -------------------------------
@@ -100,12 +101,10 @@ def main():
         logging.info('qi counts by PT')
         countsi = value_counts(cdm_table_ym,qi,loc_ships,loc_buoys)
         counts_df = pd.concat([counts_df,pd.DataFrame(data=[countsi.values],index=[dt],columns = countsi.index.values)],sort=True)
-        
         if i%120 == 0:
             out_file = os.path.join(dir_out,qi + '-ts_part.psv')
             counts_df.to_csv(out_file,sep='|',na_rep='0')
     
-    exit()
     out_file = os.path.join(dir_out,qi + '-ts.psv')    
     counts_df.to_csv(out_file,sep='|',na_rep='0')
 
