@@ -16,17 +16,8 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
-      - name: Install Verdana font
-        run: |
-          sudo apt-get update
-          echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
-          sudo apt-get install -y ttf-mscorefonts-installer fontconfig
-          sudo fc-cache -fv
-          fc-list | grep -i verdana || echo "⚠️ Verdana not found"
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
-        env:
-          LUAOTFLOAD_FONTPATH: /usr/share/fonts/truetype/msttcorefonts
         with:
           working_directory: mug_document_src
           root_file: main.tex
