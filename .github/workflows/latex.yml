@@ -23,15 +23,10 @@ jobs:
           sudo apt-get install -y ttf-mscorefonts-installer fontconfig
           sudo fc-cache -fv
           fc-list | grep -i verdana || echo "⚠️ Verdana not found"
-      - name: Install TeX Live and LuaLaTex
-        run: |
-          sudo apt-get install -y texlive-luatex texlive-latex-extra texlive-fonts-recommended
-          # Rebuild LuaLaTeX font cache
-          luaotfload-tool --update --force
-          # Verify Verdana is available
-          luaotfload-tool --find Verdana || echo "⚠️ Verdana still not found"
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
+        env:
+          LUAOTFLOAD_FONTPATH: /usr/share/fonts/truetype/msttcorefonts
         with:
           working_directory: mug_document_src
           root_file: main.tex
