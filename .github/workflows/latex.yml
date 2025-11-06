@@ -19,8 +19,11 @@ jobs:
       - name: Install Verdana font
         run: |
           sudo apt-get update
-          sudo apt-get install -y ttf-mscorefonts-installer
-          fc-cache -fv
+          echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
+          sudo apt-get install -y ttf-mscorefonts-installer fontconfig
+          sudo fc-cache -fv
+          sudo luaotfload-tool --update --force
+          fc-list | grep -i verdana || echo "⚠️ Verdana not found"
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
