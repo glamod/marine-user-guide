@@ -40,13 +40,12 @@ def value_counts(cdm_table_ym,column,loc_ships,loc_buoys):
     buoys = cdm_table_ym.loc[loc_buoys]
     vc_buoys = buoys.value_counts(column) 
     vc_buoys.index = [ str(x) + '.buoys' for x in vc_buoys.index ]
-    ships = cdm_table_ym.loc[cdm_table_ym['platform_type'] != 5 ]
+    ships = cdm_table_ym.loc[loc_ships]
     vc_ships = ships.value_counts(column)
     vc_ships.index = [ str(x) + '.ships' for x in vc_ships.index ]
     nreports = pd.Series(index=['nreports'],data=[len(cdm_table_ym)])
     nreports_ships = pd.Series(index=['nreports.ships'],data=[len(ships)])
     nreports_buoys = pd.Series(index=['nreports.buoys'],data=[len(buoys)])
-    
     df_test = pd.concat([nreports,nreports_buoys,nreports_ships,vc,vc_buoys,vc_ships])    
     return df_test
 
@@ -95,8 +94,8 @@ def main():
             cdm_table_ym = pd.concat([cdm_table_ym,cdm_table], sort = False)
         
         logging.info('PT locs')
-        loc_buoys = cdm_table_ym.loc[cdm_table_ym['platform_type'] == 5 ].index 
-        loc_ships = cdm_table_ym.loc[cdm_table_ym['platform_type'] != 5 ].index
+        loc_buoys = cdm_table_ym[cdm_table_ym['platform_type'] == 5].index
+        loc_ships = cdm_table_ym[cdm_table_ym['platform_type'] != 5 ].index
         
         logging.info('qi counts by PT')
         countsi = value_counts(cdm_table_ym,qi,loc_ships,loc_buoys)

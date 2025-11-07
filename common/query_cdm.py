@@ -146,7 +146,7 @@ def get_data_from_file(sid_dck, table, year, month, dir_data, **kwargs):
     #    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     #    print(exc_type, fname, exc_tb.tb_lineno)
     #    logging.error('Querying data from file', exc_info=True)
-        
+    df = df.set_index("report_id", drop=False)    
     return df
     
     
