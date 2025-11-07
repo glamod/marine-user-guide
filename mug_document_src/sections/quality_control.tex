@@ -1,7 +1,7 @@
 \section{Quality control and processing} \label{processing}
 \subsection{Verification of input data and conversion to a common data model}\label{format-check}
 All data processing and published in this service is handled in the common data model (CDM) used by the GLAMOD service for both land and marine data.
-Marine input data is converted to the CDM, using the Common Data Model reader and mapper (CDM reader/mapper) software package (\cite{lierhammer_2024_14135493}).
+Marine input data is converted to the CDM, using the Common Data Model reader and mapper (CDM reader/mapper) software package (\cite{lierhammer_2025_17403676}).
 The package is capable of reading in text and NetCDF data records, parsing the contents according to description tables and converting them to the CDM as defined in specific rule sets. 
 During the conversion process, a series of sanity and format checks are applied to the data, allowing corrupt records and systematic problems with the raw data to be identified and excluded from further processing.
 
@@ -17,8 +17,10 @@ Table \ref{tab:imma_structure} summarises the different attachments, those in it
 The presence of the other attachments depends on both the type of platform/station making the weather report and the source of the data. 
 For example, the IMMT attachment will only be present for ship observations reporting in delayed mode.
 
-After the initial conversion odf the input data sources, the subsequent processing is performed in the CDM framework.
-The indivual processing steps are handled with the GLAMOD marine processing package ({\cite{lierhammer_2024_14215566}).
+After the initial conversion of the input data sources, the subsequent processing is performed in the CDM framework.
+The indivual processing steps are handled with the GLAMOD marine processing package ({\cite{lierhammer_2025_17404810}).
+
+The quality of the data is checked, using the marine quality control (marine\_qc) software package \cite{lierhammer_2025_17404319}).
 
 
 \begin{table}
