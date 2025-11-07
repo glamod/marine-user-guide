@@ -44,7 +44,7 @@ if __name__ == "__main__":
     year_init = int(config['year_init'])
     year_end = int(config['year_end'])
     data = pd.read_csv(file_data,delimiter='|',header = 0,index_col=[0],parse_dates=[0])
-    
+
     y_med = data['nreports'].max()/2
         
     f, ax = plt.subplots(1, 1,figsize=figsize)
@@ -56,13 +56,11 @@ if __name__ == "__main__":
         qc_passed = 100*data['0']/data['nreports']
     if '1' in data.columns:
         qc_failed = 100*data['1']/data['nreports']
-    if '2' in data.columns:
-        not_checked = 100*data['2']/data['nreports']
     if '6' in data.columns:
         blacklisted = 100*data['6']/data['nreports']
     
-    ax.stackplot(data.index, qc_passed, qc_failed, not_checked, blacklisted,
-        labels = ['qc passed','qc failed','not checked', 'on blacklist'], colors=['Grey','Red','SeaShell', 'Black'],alpha = 0.3,edgecolor=['Grey']*3,linewidth=.3)
+    ax.stackplot(data.index, qc_passed, qc_failed, blacklisted,
+        labels = ['qc passed','qc failed','on blacklist'], colors=['Grey','Red','Black'],alpha = 0.3,edgecolor=['Grey']*3,linewidth=.3)
 
     #ax.plot(data['nreports'].rolling(12, center=True).mean(),label='__nolegend__',linewidth = 1,linestyle = ':',color = 'Black',alpha=0.7)
     
